@@ -43,12 +43,12 @@ body{
   line-height:1.6;
   overflow-x:hidden;
 }
-
+ 
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--surface2);border-radius:3px}
-
+ 
 /* ── NAV ── */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
@@ -83,7 +83,7 @@ nav{
   box-shadow:0 0 20px rgba(0,212,255,0.25);
 }
 .nav-cta:hover{background:#00b8d9!important;transform:translateY(-1px);}
-
+ 
 /* ── STATUS PILL ── */
 .status-pill{
   display:flex;align-items:center;gap:0.5rem;
@@ -102,7 +102,7 @@ nav{
 }
 .status-dot.offline{background:var(--red);box-shadow:0 0 8px var(--red);animation:none;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(0.85)}}
-
+ 
 /* ── HERO ── */
 #hero{
   min-height:100vh;
@@ -181,7 +181,7 @@ h1 .accent{
 .btn-secondary:hover{background:var(--surface);transform:translateY(-2px);border-color:rgba(255,255,255,0.2);}
 .btn-discord{background:#5865f2;color:#fff;box-shadow:0 4px 12px rgba(88,101,242,0.3);}
 .btn-discord:hover{background:#4752d9;transform:translateY(-2px);}
-
+ 
 /* ── SERVER STATUS CARD ── */
 .server-card{
   background:var(--surface);
@@ -220,7 +220,7 @@ h1 .accent{
   font-size:0.85rem;
 }
 .copy-btn:hover{color:var(--accent);}
-
+ 
 /* ── SECTIONS ── */
 section{padding:6rem 2rem;position:relative;}
 .container{max-width:1100px;margin:0 auto;}
@@ -238,7 +238,7 @@ section{padding:6rem 2rem;position:relative;}
   font-size:1rem;color:var(--text2);
   max-width:520px;line-height:1.7;margin-bottom:3rem;
 }
-
+ 
 /* ── FEATURES ── */
 #features{background:var(--bg2);}
 .features-grid{
@@ -275,7 +275,7 @@ section{padding:6rem 2rem;position:relative;}
 .fi-purple{background:rgba(168,85,247,0.12);}
 .feature-title{font-size:1.05rem;font-weight:700;margin-bottom:0.5rem;}
 .feature-desc{font-size:0.9rem;color:var(--text2);line-height:1.6;}
-
+ 
 /* ── LIVE STATUS ── */
 #status{background:var(--bg);}
 .status-big{
@@ -321,7 +321,7 @@ section{padding:6rem 2rem;position:relative;}
   display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
 .jstep-text{font-size:0.88rem;color:var(--text2);}
-
+ 
 /* ── RULES ── */
 #rules{background:var(--bg2);}
 .rules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;}
@@ -341,7 +341,7 @@ section{padding:6rem 2rem;position:relative;}
 }
 .rule-title{font-size:0.95rem;font-weight:700;margin-bottom:0.3rem;}
 .rule-desc{font-size:0.85rem;color:var(--text2);line-height:1.5;}
-
+ 
 /* ── STAFF ── */
 #staff{background:var(--bg);}
 .staff-grid{display:flex;flex-wrap:wrap;gap:1.25rem;}
@@ -369,7 +369,7 @@ section{padding:6rem 2rem;position:relative;}
 .r-admin{background:rgba(239,68,68,0.12);color:#f87171;}
 .r-mod{background:rgba(59,130,246,0.12);color:#93c5fd;}
 .r-helper{background:rgba(34,197,94,0.12);color:var(--green);}
-
+ 
 /* ── SHOP PREVIEW ── */
 #shop{background:var(--bg2);}
 .shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.25rem;}
@@ -402,7 +402,7 @@ section{padding:6rem 2rem;position:relative;}
   transition:all 0.2s;margin-top:0.25rem;
 }
 .shop-btn:hover{background:#00b8d9;transform:translateY(-1px);}
-
+ 
 /* ── ABOUT ── */
 #about{background:var(--bg);}
 .about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:4rem;align-items:center;}
@@ -420,7 +420,7 @@ section{padding:6rem 2rem;position:relative;}
 .about-feature{display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:var(--bg2);border-radius:8px;}
 .af-icon{font-size:1.1rem;flex-shrink:0;}
 .af-text{font-size:0.88rem;color:var(--text2);}
-
+ 
 /* ── FAQ ── */
 #faq{background:var(--bg2);}
 .faq-list{display:flex;flex-direction:column;gap:0.75rem;max-width:700px;}
@@ -445,7 +445,7 @@ section{padding:6rem 2rem;position:relative;}
   padding:0 1.5rem;
 }
 .faq-item.open .faq-a{max-height:200px;padding:0 1.5rem 1.25rem;}
-
+ 
 /* ── CONTACT ── */
 #contact{background:var(--bg);}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
@@ -476,7 +476,7 @@ section{padding:6rem 2rem;position:relative;}
 .cfield input::placeholder,.cfield textarea::placeholder{color:var(--text3);}
 .cfield textarea{resize:vertical;}
 .form-success-msg{display:none;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:var(--green);border-radius:8px;padding:0.75rem 1rem;font-size:0.88rem;margin-bottom:1rem;}
-
+ 
 /* ── VOTE ── */
 #vote{background:var(--bg2);}
 .vote-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;}
@@ -490,7 +490,7 @@ section{padding:6rem 2rem;position:relative;}
 .vote-site{font-size:0.92rem;font-weight:700;margin-bottom:0.25rem;}
 .vote-desc{font-size:0.78rem;color:var(--text3);}
 .vote-cta{display:inline-block;margin-top:0.75rem;font-size:0.78rem;font-weight:700;color:var(--accent);letter-spacing:0.05em;text-transform:uppercase;}
-
+ 
 /* ── DISCORD BANNER ── */
 #discord-banner{
   background:linear-gradient(135deg,#3b3fbd,#5865f2,#3b82f6);
@@ -500,7 +500,7 @@ section{padding:6rem 2rem;position:relative;}
 .db-icon{font-size:3rem;margin-bottom:1rem;}
 .db-title{font-size:2.5rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:1rem;}
 .db-sub{font-size:1rem;opacity:0.85;margin-bottom:2rem;line-height:1.6;}
-
+ 
 /* ── FOOTER ── */
 footer{
   background:var(--bg);
@@ -526,14 +526,14 @@ footer{
 .footer-bottom p{font-size:0.8rem;color:var(--text3);}
 .footer-bottom a{color:var(--text3);text-decoration:none;transition:color 0.2s;}
 .footer-bottom a:hover{color:var(--accent);}
-
+ 
 /* ── LEGAL SECTIONS ── */
 #privacy-page,#terms-page,#contact-section{padding:6rem 2rem;}
 .legal-content{max-width:720px;}
 .legal-content h3{font-size:1.05rem;font-weight:700;color:var(--accent);margin:1.5rem 0 0.5rem;}
 .legal-content p{font-size:0.9rem;color:var(--text2);line-height:1.75;margin-bottom:0.75rem;}
 .legal-date{font-size:0.8rem;color:var(--text3);margin-bottom:2rem;font-style:italic;}
-
+ 
 /* ── COOKIE BANNER ── */
 #cookie-banner{
   position:fixed;bottom:0;left:0;right:0;z-index:1000;
@@ -552,7 +552,7 @@ footer{
 .c-accept:hover{background:#00b8d9;}
 .c-decline{background:var(--surface);color:var(--text2);border:1px solid var(--border);padding:0.6rem 1.25rem;border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.85rem;cursor:pointer;transition:all 0.2s;}
 .c-decline:hover{border-color:var(--border2);color:var(--text);}
-
+ 
 /* ── CART BUTTON ROW ── */
 .shop-btn-row{display:flex;gap:0.5rem;margin-top:0.25rem;}
 .shop-btn-cart{
@@ -570,7 +570,7 @@ footer{
   font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.2s;
 }
 .shop-btn-buy:hover{background:#00b8d9;transform:translateY(-1px);}
-
+ 
 /* ── CART FAB ── */
 #cart-fab{
   position:fixed;bottom:2rem;right:2rem;z-index:500;
@@ -587,11 +587,11 @@ footer{
   border-radius:50%;width:22px;height:22px;
   font-size:0.75rem;display:flex;align-items:center;justify-content:center;
 }
-
+ 
 /* ── CART OVERLAY ── */
 #cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:600;display:none;backdrop-filter:blur(4px);}
 #cart-overlay.open{display:block;}
-
+ 
 /* ── CART DRAWER ── */
 #cart-drawer{
   position:fixed;top:0;right:0;bottom:0;width:400px;
@@ -660,7 +660,7 @@ footer{
 .cart-continue-btn:hover{border-color:var(--border2);color:var(--text);}
 .cart-secure-note{font-size:0.75rem;color:var(--text3);text-align:center;}
 @media(max-width:480px){#cart-drawer{width:100%;}}
-
+ 
 /* ── STAFF PORTAL ── */
 .sp-tab{background:var(--surface);border:1px solid var(--border);color:var(--text2);padding:0.55rem 1.1rem;border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.875rem;font-weight:600;cursor:pointer;transition:all 0.15s;}
 .sp-tab:hover{border-color:var(--border2);color:var(--text);}
@@ -686,12 +686,12 @@ footer{
 .sp-rule-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;display:flex;align-items:center;gap:1rem;}
 .sp-rule-num{width:28px;height:28px;border-radius:6px;background:rgba(0,212,255,0.1);color:var(--accent);font-size:0.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .sp-rule-text{flex:1;font-size:0.875rem;color:var(--text2);}
-
+ 
 .dd-item{width:100%;display:flex;align-items:center;padding:0.65rem 0.9rem;background:none;border:none;color:var(--text2);font-family:'Outfit',sans-serif;font-size:0.875rem;font-weight:500;cursor:pointer;border-radius:8px;transition:all 0.15s;text-align:left;}
 .dd-item:hover{background:var(--surface);color:var(--text);}
 .dd-item-danger{color:#f87171!important;}
 .dd-item-danger:hover{background:rgba(239,68,68,0.08)!important;}
-
+ 
 /* ── ACCOUNT MODAL ── */
 #account-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:800;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);padding:1rem;}
 #account-modal-overlay.open{display:flex;}
@@ -747,11 +747,11 @@ footer{
 .am-success{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:var(--green);border-radius:8px;padding:0.7rem 1rem;font-size:0.875rem;margin-bottom:1rem;display:none;}
 .am-error{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;border-radius:8px;padding:0.7rem 1rem;font-size:0.875rem;margin-bottom:1rem;display:none;}
 @media(max-width:640px){#account-modal{flex-direction:column;}.am-sidebar{width:100%;min-width:unset;border-right:none;border-bottom:1px solid var(--border);}.am-nav{display:flex;flex-wrap:wrap;gap:0.25rem;padding:0.5rem;}.am-nav-group{display:none;}.am-nav-item{padding:0.4rem 0.75rem;font-size:0.78rem;}.am-content{padding:1.25rem;}}
-
+ 
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
-
+ 
 /* ── RESPONSIVE ── */
 @media(max-width:768px){
   nav{padding:0 1.25rem;}
@@ -764,7 +764,7 @@ footer{
 </style>
 </head>
 <body>
-
+ 
 <!-- NAV -->
 <nav>
   <a href="#hero" class="nav-logo">
@@ -820,7 +820,7 @@ footer{
     <span id="nav-status-text">Checking…</span>
   </div>
 </nav>
-
+ 
 <!-- HERO -->
 <section id="hero">
   <div class="hero-grid"></div>
@@ -855,7 +855,7 @@ footer{
     </div>
   </div>
 </section>
-
+ 
 <!-- LIVE STATUS -->
 <section id="status">
   <div class="container">
@@ -908,7 +908,7 @@ footer{
     </div>
   </div>
 </section>
-
+ 
 <!-- FEATURES -->
 <section id="features">
   <div class="container">
@@ -949,7 +949,7 @@ footer{
     </div>
   </div>
 </section>
-
+ 
 <!-- RULES -->
 <section id="rules">
   <div class="container">
@@ -966,7 +966,7 @@ footer{
     </div>
   </div>
 </section>
-
+ 
 <!-- STAFF -->
 <section id="staff">
   <div class="container">
@@ -998,7 +998,7 @@ footer{
     <p style="margin-top:2rem;font-size:0.85rem;color:var(--text3);">Want to join the team? <a href="#contact" style="color:var(--accent);">Apply for staff →</a></p>
   </div>
 </section>
-
+ 
 <!-- SHOP -->
 <section id="shop">
   <div class="container">
@@ -1072,7 +1072,7 @@ footer{
     </div>
   </div>
 </section>
-
+ 
 <!-- ABOUT -->
 <section id="about">
   <div class="container">
@@ -1101,7 +1101,7 @@ footer{
     </div>
   </div>
 </section>
-
+ 
 <!-- VOTE -->
 <section id="vote">
   <div class="container">
@@ -1136,7 +1136,7 @@ footer{
     </div>
   </div>
 </section>
-
+ 
 <!-- FAQ -->
 <section id="faq">
   <div class="container">
@@ -1171,7 +1171,7 @@ footer{
     </div>
   </div>
 </section>
-
+ 
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
@@ -1218,7 +1218,7 @@ footer{
     </div>
   </div>
 </section>
-
+ 
 <!-- DISCORD BANNER -->
 <section id="discord-banner">
   <div class="db-inner">
@@ -1228,7 +1228,7 @@ footer{
     <a href="https://discord.gg/c2FQM6bNcN" target="_blank" class="btn" style="background:#fff;color:#5865f2;font-size:1rem;font-weight:800;padding:1rem 2.5rem;box-shadow:0 8px 24px rgba(0,0,0,0.2);">Join Discord — It's Free</a>
   </div>
 </section>
-
+ 
 <!-- PRIVACY POLICY -->
 <section id="privacy-page" style="background:var(--bg2);">
   <div class="container">
@@ -1244,7 +1244,7 @@ footer{
     </div>
   </div>
 </section>
-
+ 
 <!-- TERMS -->
 <section id="terms-page" style="background:var(--bg);">
   <div class="container">
@@ -1260,7 +1260,7 @@ footer{
     </div>
   </div>
 </section>
-
+ 
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -1305,12 +1305,12 @@ footer{
     </div>
   </div>
 </footer>
-
+ 
 <!-- ACCOUNT MODAL -->
 <div id="account-modal-overlay" onclick="closeAccountModal(event)">
   <div id="account-modal">
     <button class="am-close" onclick="closeAccountModal()">✕</button>
-
+ 
     <!-- SIDEBAR -->
     <div class="am-sidebar">
       <div class="am-profile-header">
@@ -1333,10 +1333,10 @@ footer{
         <button class="am-nav-item am-nav-item-danger" onclick="authLogout()"><span class="am-nav-item-icon">🚪</span>Sign Out</button>
       </div>
     </div>
-
+ 
     <!-- CONTENT -->
     <div class="am-content">
-
+ 
       <!-- PROFILE -->
       <div class="am-panel active" id="am-panel-profile">
         <div class="am-panel-title">My Profile</div>
@@ -1353,7 +1353,7 @@ footer{
         <div class="am-info-card"><div class="am-info-icon">🪪</div><div><div class="am-info-label">Auth0 User ID</div><div class="am-info-val" id="am-info-sub" style="font-size:0.78rem;font-family:'JetBrains Mono',monospace;color:var(--text3);">—</div></div></div>
         <div class="am-info-card"><div class="am-info-icon">✅</div><div><div class="am-info-label">Email Verified</div><div class="am-info-val" id="am-info-verified">—</div></div></div>
       </div>
-
+ 
       <!-- SETTINGS -->
       <div class="am-panel" id="am-panel-settings">
         <div class="am-panel-title">Account Settings</div>
@@ -1373,7 +1373,7 @@ footer{
         </div>
         <button class="am-btn" onclick="saveSettings()">✦ Save Settings</button>
       </div>
-
+ 
       <!-- SECURITY -->
       <div class="am-panel" id="am-panel-security">
         <div class="am-panel-title">Security</div>
@@ -1393,7 +1393,7 @@ footer{
         <div style="font-size:0.9rem;font-weight:700;margin-bottom:0.5rem;">Active Sessions</div>
         <div class="am-info-card"><div class="am-info-icon">🖥️</div><div><div class="am-info-label">Current Session</div><div class="am-info-val">This device — Active now</div></div></div>
       </div>
-
+ 
       <!-- PURCHASES -->
       <div class="am-panel" id="am-panel-purchases">
         <div class="am-panel-title">My Purchases</div>
@@ -1404,7 +1404,7 @@ footer{
           <a href="#shop" onclick="closeAccountModal()" style="display:inline-block;margin-top:1rem;color:var(--accent);font-size:0.875rem;text-decoration:underline;">Browse Shop →</a>
         </div>
       </div>
-
+ 
       <!-- CONNECTED APPS -->
       <div class="am-panel" id="am-panel-connections">
         <div class="am-panel-title">Connected Apps</div>
@@ -1413,7 +1413,7 @@ footer{
         <div class="am-info-card"><div class="am-info-icon">🛒</div><div><div class="am-info-label">Tebex</div><div class="am-info-val">Shop & Payment Processor</div></div></div>
         <p style="font-size:0.8rem;color:var(--text3);margin-top:1rem;">To revoke access to any app, visit your <a href="https://manage.auth0.com" target="_blank" style="color:var(--accent)">Auth0 dashboard</a>.</p>
       </div>
-
+ 
       <!-- NOTIFICATIONS -->
       <div class="am-panel" id="am-panel-notifications">
         <div class="am-panel-title">Notifications</div>
@@ -1425,7 +1425,7 @@ footer{
         <div class="am-toggle-row"><div><div class="am-toggle-title">Staff Replies</div><div class="am-toggle-desc">When a staff member responds to your ticket.</div></div><label class="am-toggle"><input type="checkbox" checked><span class="am-toggle-slider"></span></label></div>
         <button class="am-btn" style="margin-top:1.25rem" onclick="document.getElementById('notif-ok').style.display='block'">Save Preferences</button>
       </div>
-
+ 
       <!-- PRIVACY -->
       <div class="am-panel" id="am-panel-privacy">
         <div class="am-panel-title">Privacy</div>
@@ -1440,11 +1440,11 @@ footer{
         <p style="font-size:0.82rem;color:var(--text3);margin-bottom:1rem;">Permanently delete your account and all associated data. This cannot be undone.</p>
         <button class="am-btn am-btn-danger" onclick="if(confirm('Are you sure? This cannot be undone.')) authLogout()">🗑️ Delete My Account</button>
       </div>
-
+ 
     </div>
   </div>
 </div>
-
+ 
 <!-- APPLY FOR STAFF -->
 <section id="apply" style="background:var(--bg2);">
   <div class="container">
@@ -1503,7 +1503,7 @@ footer{
         </div>
       </div>
     </div>
-
+ 
     <!-- Application Tracker -->
     <div id="app-tracker" style="display:none;margin-top:3rem;">
       <div style="font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);margin-bottom:1rem;">Your Application</div>
@@ -1511,7 +1511,7 @@ footer{
     </div>
   </div>
 </section>
-
+ 
 <!-- STAFF PORTAL OVERLAY -->
 <div id="staff-portal-overlay" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:900;overflow-y:auto;">
   <div style="max-width:1100px;margin:0 auto;padding:2rem;">
@@ -1526,7 +1526,7 @@ footer{
       </div>
       <button onclick="closeStaffPortal()" style="background:var(--surface);border:1px solid var(--border);color:var(--text2);padding:0.5rem 1rem;border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.875rem;cursor:pointer;">← Back to Site</button>
     </div>
-
+ 
     <!-- Stats row -->
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:2rem;">
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;">
@@ -1546,7 +1546,7 @@ footer{
         <div style="font-size:0.75rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.2rem;">Logged in as</div>
       </div>
     </div>
-
+ 
     <!-- Tabs -->
     <div style="display:flex;gap:0.5rem;margin-bottom:1.5rem;flex-wrap:wrap;">
       <button class="sp-tab active" onclick="switchSpTab('applications')" id="sptab-applications">📋 Applications</button>
@@ -1555,7 +1555,7 @@ footer{
       <button class="sp-tab" onclick="switchSpTab('announcements')" id="sptab-announcements">📢 Announcements</button>
       <button class="sp-tab" onclick="switchSpTab('notes')" id="sptab-notes">📝 Staff Notes</button>
     </div>
-
+ 
     <!-- Applications Panel -->
     <div class="sp-panel active" id="sppanel-applications">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
@@ -1569,7 +1569,7 @@ footer{
       </div>
       <div id="sp-applications-list"></div>
     </div>
-
+ 
     <!-- Players Panel -->
     <div class="sp-panel" id="sppanel-players">
       <div style="font-size:1rem;font-weight:800;margin-bottom:1rem;">Player Management</div>
@@ -1579,14 +1579,14 @@ footer{
         <div style="font-size:0.82rem;margin-top:0.5rem;">Server IP: <code style="color:var(--accent);">poclussmp.minecraft.best:25565</code></div>
       </div>
     </div>
-
+ 
     <!-- Rules Manager Panel -->
     <div class="sp-panel" id="sppanel-rules">
       <div style="font-size:1rem;font-weight:800;margin-bottom:1rem;">Rules Manager</div>
       <div id="sp-rules-list" style="display:flex;flex-direction:column;gap:0.75rem;"></div>
       <button onclick="addStaffRule()" style="margin-top:1rem;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.2);color:var(--accent);padding:0.6rem 1.25rem;border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.875rem;font-weight:600;cursor:pointer;">+ Add Rule</button>
     </div>
-
+ 
     <!-- Announcements Panel -->
     <div class="sp-panel" id="sppanel-announcements">
       <div style="font-size:1rem;font-weight:800;margin-bottom:1rem;">Post Announcement</div>
@@ -1602,7 +1602,7 @@ footer{
         <div id="sp-ann-ok" style="display:none;margin-top:1rem;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:var(--green);border-radius:8px;padding:0.75rem;font-size:0.875rem;">✅ Announcement posted!</div>
       </div>
     </div>
-
+ 
     <!-- Staff Notes Panel -->
     <div class="sp-panel" id="sppanel-notes">
       <div style="font-size:1rem;font-weight:800;margin-bottom:1rem;">Staff Notes</div>
@@ -1614,7 +1614,7 @@ footer{
     </div>
   </div>
 </div>
-
+ 
 <!-- ACCESS DENIED -->
 <div id="access-denied" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:950;display:none;align-items:center;justify-content:center;text-align:center;padding:2rem;">
   <div>
@@ -1624,7 +1624,7 @@ footer{
     <button onclick="document.getElementById('access-denied').style.display='none'" class="btn btn-secondary">Go Back</button>
   </div>
 </div>
-
+ 
 <!-- COOKIE BANNER -->
 <div id="cookie-banner">
   <div class="cookie-text">🍪 We use cookies and Google AdSense to serve ads. By clicking <strong>Accept</strong> you agree to our <a href="#privacy-page">Privacy Policy</a>.</div>
@@ -1633,7 +1633,7 @@ footer{
     <button class="c-accept" onclick="dismissCookie('accepted')">Accept All</button>
   </div>
 </div>
-
+ 
 <script>
 // ── ACCOUNT MODAL ──
 function openAccountModal(tab) {
@@ -1658,13 +1658,13 @@ function openAccountModal(tab) {
     if(badges) badges.innerHTML = user.email_verified ? '<span style="background:rgba(34,197,94,0.12);color:var(--green);border:1px solid rgba(34,197,94,0.3);border-radius:4px;padding:0.15rem 0.5rem;font-size:0.72rem;font-weight:700;">✓ Verified</span>' : '';
   });
 }
-
+ 
 function closeAccountModal(e) {
   if (e && e.target !== document.getElementById('account-modal-overlay')) return;
   document.getElementById('account-modal-overlay').classList.remove('open');
   document.body.style.overflow = '';
 }
-
+ 
 function switchAmPanel(tab) {
   document.querySelectorAll('.am-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.am-nav-item').forEach(t => t.classList.remove('active'));
@@ -1673,21 +1673,21 @@ function switchAmPanel(tab) {
   if (panel) panel.classList.add('active');
   if (navItem) navItem.classList.add('active');
 }
-
+ 
 function saveSettings() {
   const ok = document.getElementById('settings-ok');
   if (ok) { ok.style.display = 'block'; setTimeout(() => ok.style.display='none', 3000); }
 }
-
+ 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeAccountModal(); closeCart(); } });
-
+ 
 // ── AUTH0 ──
 const AUTH0_DOMAIN   = 'dev-os444ml4cjthzbp2.eu.auth0.com';
 const AUTH0_CLIENT   = '8qVlcsKjKvHClIB0D56rxK6CsAwwNLqQ';
 const AUTH0_REDIRECT = window.location.origin + window.location.pathname;
-
+ 
 let auth0Client = null;
-
+ 
 async function initAuth0() {
   try {
     auth0Client = await auth0.createAuth0Client({
@@ -1695,36 +1695,44 @@ async function initAuth0() {
       clientId: AUTH0_CLIENT,
       authorizationParams: { redirect_uri: AUTH0_REDIRECT }
     });
-
+ 
     // Handle redirect callback after login
     if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
       await auth0Client.handleRedirectCallback();
       window.history.replaceState({}, document.title, window.location.pathname);
     }
-
+ 
     await updateAuthUI();
   } catch(e) {
     console.error('Auth0 init error:', e);
   }
 }
-
+ 
+// ── STAFF NAV ──
+async function checkStaffNav() {
+  if (await isStaff()) {
+    const link = document.getElementById('nav-staff-link');
+    if (link) link.style.display = 'block';
+  }
+}
+ 
 async function updateAuthUI() {
   const isAuthed = await auth0Client.isAuthenticated();
   const loginBtn  = document.getElementById('nav-login-btn');
   const userBtn   = document.getElementById('nav-user-btn');
-
+ 
   if (isAuthed) {
     const user = await auth0Client.getUser();
     loginBtn.style.display = 'none';
     userBtn.style.display  = 'block';
-
+ 
     const initials = (user.name || user.email || '?').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
     document.getElementById('nav-avatar').textContent   = initials;
     document.getElementById('nav-username').textContent = user.nickname || user.name || 'Player';
     document.getElementById('dd-name').textContent      = user.name || user.email;
     document.getElementById('dd-email').textContent     = user.email || '';
     document.getElementById('dd-avatar-big').textContent = initials;
-
+ 
     // Check staff role and apply page
     checkStaffNav();
     checkApplyPage();
@@ -1734,12 +1742,12 @@ async function updateAuthUI() {
     checkApplyPage();
   }
 }
-
+ 
 function toggleUserMenu() {
   const dd = document.getElementById('user-dropdown');
   dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
 }
-
+ 
 // Close dropdown when clicking outside
 document.addEventListener('click', e => {
   const btn = document.getElementById('nav-user-btn');
@@ -1748,7 +1756,7 @@ document.addEventListener('click', e => {
     if (dd) dd.style.display = 'none';
   }
 });
-
+ 
 async function authLogin() {
   try {
     await auth0Client.loginWithRedirect({
@@ -1756,7 +1764,7 @@ async function authLogin() {
     });
   } catch(e) { console.error('Login error:', e); }
 }
-
+ 
 async function authLogout() {
   try {
     await auth0Client.logout({
@@ -1764,7 +1772,7 @@ async function authLogout() {
     });
   } catch(e) { console.error('Logout error:', e); }
 }
-
+ 
 // Init on load
 initAuth0();
 async function fetchStatus() {
@@ -1775,25 +1783,25 @@ async function fetchStatus() {
     const players = data.players ? data.players.online : 0;
     const max     = data.players ? data.players.max : 20;
     const version = data.version || '1.21';
-
+ 
     // Nav pill
     const navDot  = document.getElementById('nav-dot');
     const navTxt  = document.getElementById('nav-status-text');
     navDot.className  = 'status-dot' + (online ? '' : ' offline');
     navTxt.textContent = online ? players+' online' : 'Offline';
-
+ 
     // Hero card
     document.getElementById('hero-online').textContent  = online ? players : '0';
     document.getElementById('hero-max').textContent     = max;
     document.getElementById('hero-version').textContent = version;
-
+ 
     // Status section
     const bigDot = document.getElementById('status-dot-big');
     const bigLbl = document.getElementById('status-label-big');
     bigDot.className  = 'status-dot-big' + (online ? '' : ' offline');
     bigLbl.textContent = online ? 'Server is Online ✓' : 'Server is Offline';
     bigLbl.style.color = online ? 'var(--green)' : 'var(--red)';
-
+ 
     document.getElementById('stat-online').textContent  = online ? players : '0';
     document.getElementById('stat-max').textContent     = max;
     document.getElementById('stat-version').textContent = version;
@@ -1805,7 +1813,7 @@ async function fetchStatus() {
 }
 fetchStatus();
 setInterval(fetchStatus, 60000);
-
+ 
 // ── COPY IP ──
 function copyIP() {
   navigator.clipboard.writeText('poclussmp.minecraft.best').then(() => {
@@ -1813,7 +1821,7 @@ function copyIP() {
     btns.forEach(b => { const orig = b.textContent||b.innerHTML; b.textContent='✓ Copied!'; setTimeout(()=>{ b.textContent=orig.includes('📋')?'📋 Copy IP':'📋  Copy Server IP'; },2000); });
   });
 }
-
+ 
 // ── FAQ ──
 function toggleFaq(btn) {
   const item = btn.closest('.faq-item');
@@ -1821,7 +1829,7 @@ function toggleFaq(btn) {
   document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
   if (!isOpen) item.classList.add('open');
 }
-
+ 
 // ── CONTACT FORM ──
 function submitContact() {
   const name = document.getElementById('c-name').value.trim();
@@ -1834,7 +1842,7 @@ function submitContact() {
   document.getElementById('c-email').value='';
   document.getElementById('c-msg').value='';
 }
-
+ 
 // ── COOKIE ──
 function dismissCookie(choice) {
   localStorage.setItem('cookies', choice);
@@ -1845,7 +1853,7 @@ window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => document.getElementById('cookie-banner').classList.add('show'), 1500);
   }
 });
-
+ 
 // ── SCROLL REVEAL ──
 const observer = new IntersectionObserver(entries => {
   entries.forEach((e, i) => {
@@ -1861,10 +1869,10 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 <button id="cart-fab" onclick="openCart()">
   🛒 Cart <span id="cart-fab-count">0</span>
 </button>
-
+ 
 <!-- CART OVERLAY -->
 <div id="cart-overlay" onclick="closeCart()"></div>
-
+ 
 <!-- CART DRAWER -->
 <div id="cart-drawer">
   <div class="cart-head">
@@ -1887,11 +1895,11 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     <div class="cart-secure-note">🔒 Payments securely handled by Tebex</div>
   </div>
 </div>
-
+ 
 <script>
 // ── CART ──
 var cart = {};
-
+ 
 function addToCart(id, name, price, cat, btn) {
   if (cart[id]) { cart[id].qty++; }
   else { cart[id] = { name, price, qty: 1, cat }; }
@@ -1911,7 +1919,7 @@ function addToCart(id, name, price, cat, btn) {
   fab.style.animation = '';
   updateFab();
 }
-
+ 
 function changeQty(id, delta) {
   if (!cart[id]) return;
   cart[id].qty += delta;
@@ -1920,25 +1928,25 @@ function changeQty(id, delta) {
   updateFab();
   if (Object.keys(cart).length === 0) document.getElementById('cart-fab').style.display = 'none';
 }
-
+ 
 function removeItem(id) {
   delete cart[id];
   renderCart();
   updateFab();
   if (Object.keys(cart).length === 0) document.getElementById('cart-fab').style.display = 'none';
 }
-
+ 
 function updateFab() {
   var total = Object.values(cart).reduce((s, i) => s + i.qty, 0);
   document.getElementById('cart-fab-count').textContent = total;
 }
-
+ 
 function renderCart() {
   var body  = document.getElementById('cart-body');
   var foot  = document.getElementById('cart-foot');
   var empty = document.getElementById('cart-empty');
   var items = Object.entries(cart);
-
+ 
   if (items.length === 0) {
     body.innerHTML = '';
     body.appendChild(empty);
@@ -1946,11 +1954,11 @@ function renderCart() {
     foot.style.display = 'none';
     return;
   }
-
+ 
   empty.style.display = 'none';
   foot.style.display = 'flex';
   body.innerHTML = '';
-
+ 
   var total = 0;
   items.forEach(([id, item]) => {
     total += item.price * item.qty;
@@ -1970,28 +1978,28 @@ function renderCart() {
     `;
     body.appendChild(el);
   });
-
+ 
   document.getElementById('cart-total').textContent = '£' + total.toFixed(2);
 }
-
+ 
 function openCart() {
   document.getElementById('cart-drawer').classList.add('open');
   document.getElementById('cart-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
-
+ 
 function closeCart() {
   document.getElementById('cart-drawer').classList.remove('open');
   document.getElementById('cart-overlay').classList.remove('open');
   document.body.style.overflow = '';
 }
-
+ 
 function checkout() {
   window.open('https://poclus-smp-mc.tebex.io', '_blank');
 }
-
+ 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeCart(); closeStaffPortal(); } });
-
+ 
 // ── ROLES HELPER ──
 const ROLES_CLAIM = 'https://poclussmp.com/roles';
 async function getUserRoles() {
@@ -2017,15 +2025,7 @@ async function isStaff() {
   const roles = await getUserRoles();
   return roles.some(r => ['staff','admin','owner','moderator'].includes(r.toLowerCase()));
 }
-
-// ── STAFF NAV ──
-async function checkStaffNav() {
-  if (await isStaff()) {
-    const link = document.getElementById('nav-staff-link');
-    if (link) link.style.display = 'block';
-  }
-}
-
+ 
 // ── STAFF PORTAL ──
 async function openStaffPortal() {
   if (!(await isStaff())) {
@@ -2051,12 +2051,12 @@ async function openStaffPortal() {
   loadStaffNotes();
   switchSpTab('applications');
 }
-
+ 
 function closeStaffPortal() {
   document.getElementById('staff-portal-overlay').style.display = 'none';
   document.body.style.overflow = '';
 }
-
+ 
 function switchSpTab(tab) {
   document.querySelectorAll('.sp-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.sp-panel').forEach(p => p.classList.remove('active'));
@@ -2065,7 +2065,7 @@ function switchSpTab(tab) {
   if (t) t.classList.add('active');
   if (p) p.classList.add('active');
 }
-
+ 
 // ── APPLICATIONS STORAGE ──
 function getApplications() {
   try { return JSON.parse(localStorage.getItem('poclus_applications') || '[]'); }
@@ -2074,12 +2074,12 @@ function getApplications() {
 function saveApplications(apps) {
   localStorage.setItem('poclus_applications', JSON.stringify(apps));
 }
-
+ 
 // ── SUBMIT APPLICATION ──
 async function submitApplication() {
   const isAuthed = auth0Client && await auth0Client.isAuthenticated();
   if (!isAuthed) { authLogin(); return; }
-
+ 
   const mc       = document.getElementById('app-mc').value.trim();
   const discord  = document.getElementById('app-discord').value.trim();
   const age      = document.getElementById('app-age').value.trim();
@@ -2091,12 +2091,12 @@ async function submitApplication() {
   const errEl    = document.getElementById('apply-error');
   const okEl     = document.getElementById('apply-success');
   errEl.style.display = 'none'; okEl.style.display = 'none';
-
+ 
   if (!mc||!discord||!age||!role||!hours||!why||!exp||!scenario) {
     errEl.textContent = '⚠️ Please fill in all fields before submitting.';
     errEl.style.display = 'block'; return;
   }
-
+ 
   const user = await auth0Client.getUser();
   const app = {
     id: Date.now(),
@@ -2106,25 +2106,25 @@ async function submitApplication() {
     status: 'pending',
     submittedAt: new Date().toISOString()
   };
-
+ 
   const apps = getApplications();
   // Remove old app from same user
   const filtered = apps.filter(a => a.userId !== user.sub);
   filtered.push(app);
   saveApplications(filtered);
-
+ 
   okEl.textContent = '✅ Application submitted! We\'ll review it within 7 days and reply on Discord.';
   okEl.style.display = 'block';
   ['app-mc','app-discord','app-age','app-hours','app-why','app-exp','app-scenario'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
   document.getElementById('app-role').value = '';
-
+ 
   // Update stat
   const statEl = document.getElementById('sp-stat-apps');
   if (statEl) statEl.textContent = getApplications().filter(a=>a.status==='pending').length;
-
+ 
   showApplicationTracker(user.sub);
 }
-
+ 
 // ── APPLICATION TRACKER ──
 function showApplicationTracker(userId) {
   const apps = getApplications();
@@ -2132,10 +2132,10 @@ function showApplicationTracker(userId) {
   const tracker = document.getElementById('app-tracker');
   const card = document.getElementById('app-tracker-card');
   if (!myApp || !tracker || !card) return;
-
+ 
   const statusColors = { pending:'var(--gold)', approved:'var(--green)', rejected:'#f87171' };
   const statusLabels = { pending:'⏳ Under Review', approved:'✅ Approved!', rejected:'❌ Not Accepted' };
-
+ 
   card.innerHTML = `
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
       <div>
@@ -2150,7 +2150,7 @@ function showApplicationTracker(userId) {
   `;
   tracker.style.display = 'block';
 }
-
+ 
 // ── RENDER APPLICATIONS (STAFF SIDE) ──
 function renderApplications() {
   const list = document.getElementById('sp-applications-list');
@@ -2158,15 +2158,15 @@ function renderApplications() {
   const filter = document.getElementById('sp-filter')?.value || 'all';
   let apps = getApplications();
   if (filter !== 'all') apps = apps.filter(a => a.status === filter);
-
+ 
   const statEl = document.getElementById('sp-stat-apps');
   if (statEl) statEl.textContent = getApplications().filter(a=>a.status==='pending').length;
-
+ 
   if (apps.length === 0) {
     list.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--text3);">No ${filter === 'all' ? '' : filter} applications found.</div>`;
     return;
   }
-
+ 
   list.innerHTML = apps.map(app => `
     <div class="sp-app-card">
       <div class="sp-app-header">
@@ -2195,7 +2195,7 @@ function renderApplications() {
     </div>
   `).join('');
 }
-
+ 
 function updateAppStatus(id, status) {
   const apps = getApplications();
   const app = apps.find(a => a.id === id);
@@ -2207,7 +2207,7 @@ function updateAppStatus(id, status) {
     if (app) showApplicationTracker(app.userId);
   }
 }
-
+ 
 // ── STAFF RULES ──
 const defaultRules = ['No hate speech or harassment','No griefing or stealing','No hacking or exploits','No spamming or advertising','Respect all players','Staff decisions are final'];
 function renderStaffRules() {
@@ -2236,7 +2236,7 @@ function addStaffRule() {
   rules.push('New rule…'); localStorage.setItem('poclus_rules', JSON.stringify(rules));
   renderStaffRules();
 }
-
+ 
 // ── STAFF NOTES ──
 function loadStaffNotes() {
   const el = document.getElementById('sp-notes-text');
@@ -2248,7 +2248,7 @@ function saveStaffNotes() {
   const ok = document.getElementById('sp-notes-ok');
   if (ok) { ok.style.display='block'; setTimeout(()=>ok.style.display='none',2000); }
 }
-
+ 
 // ── ANNOUNCEMENTS ──
 function postAnnouncement() {
   const title = document.getElementById('sp-ann-title').value.trim();
@@ -2260,7 +2260,7 @@ function postAnnouncement() {
   document.getElementById('sp-ann-msg').value = '';
   setTimeout(() => ok.style.display='none', 3000);
 }
-
+ 
 // ── APPLY PAGE AUTH CHECK ──
 async function checkApplyPage() {
   const isAuthed = auth0Client && await auth0Client.isAuthenticated();
@@ -2277,7 +2277,8 @@ async function checkApplyPage() {
     form.style.display = 'none';
   }
 }
-
+ 
 // ── AUTH0 ──
 </body>
 </html>
+ 
