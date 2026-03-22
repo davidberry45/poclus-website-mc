@@ -1,0 +1,2283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poclus SMP — Minecraft Survival Server</title>
+<meta name="description" content="Poclus SMP is a community Minecraft survival server. Join us at poclussmp.minecraft.best and start your adventure today.">
+<meta name="keywords" content="Minecraft server, Poclus SMP, survival, SMP, Java Edition">
+<meta property="og:title" content="Poclus SMP — Minecraft Survival Server">
+<meta property="og:description" content="A fair, friendly Minecraft survival server. No pay-to-win. Join now!">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#060a0f;
+  --bg2:#0c1218;
+  --bg3:#101820;
+  --surface:#141f2a;
+  --surface2:#1a2836;
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.12);
+  --green:#22c55e;
+  --green-dim:#166534;
+  --gold:#f59e0b;
+  --gold-dim:#92400e;
+  --blue:#3b82f6;
+  --red:#ef4444;
+  --text:#f1f5f9;
+  --text2:#94a3b8;
+  --text3:#475569;
+  --accent:#00d4ff;
+  --accent2:#0ea5e9;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Outfit',sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--surface2);border-radius:3px}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2.5rem;height:68px;
+  background:rgba(6,10,15,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none;}
+.nav-logo-icon{
+  width:36px;height:36px;
+  background:linear-gradient(135deg,var(--accent),var(--blue));
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;
+  box-shadow:0 0 20px rgba(0,212,255,0.3);
+}
+.nav-logo-text{font-size:1.1rem;font-weight:800;color:var(--text);letter-spacing:-0.02em;}
+.nav-logo-text span{color:var(--accent);}
+.nav-links{display:flex;gap:0.25rem;align-items:center;list-style:none;}
+.nav-links a{
+  color:var(--text2);text-decoration:none;
+  font-size:0.875rem;font-weight:500;
+  padding:0.5rem 0.9rem;border-radius:8px;
+  transition:all 0.2s;
+}
+.nav-links a:hover{color:var(--text);background:var(--surface);}
+.nav-cta{
+  background:var(--accent);color:#000!important;
+  font-weight:700!important;
+  box-shadow:0 0 20px rgba(0,212,255,0.25);
+}
+.nav-cta:hover{background:#00b8d9!important;transform:translateY(-1px);}
+
+/* ── STATUS PILL ── */
+.status-pill{
+  display:flex;align-items:center;gap:0.5rem;
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:999px;
+  padding:0.35rem 0.9rem;
+  font-size:0.8rem;font-weight:600;
+  cursor:default;
+}
+.status-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 8px var(--green);
+  animation:pulse 2s ease-in-out infinite;
+}
+.status-dot.offline{background:var(--red);box-shadow:0 0 8px var(--red);animation:none;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(0.85)}}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:8rem 2rem 4rem;
+  position:relative;
+  overflow:hidden;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 40%,transparent 100%);
+}
+.hero-glow{
+  position:absolute;
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(0,212,255,0.08) 0%,transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:rgba(0,212,255,0.08);
+  border:1px solid rgba(0,212,255,0.2);
+  border-radius:999px;
+  padding:0.4rem 1rem;
+  font-size:0.8rem;font-weight:600;color:var(--accent);
+  letter-spacing:0.05em;text-transform:uppercase;
+  margin-bottom:1.5rem;
+  animation:fadeUp 0.6s ease both;
+}
+h1{
+  font-size:clamp(3rem,8vw,6.5rem);
+  font-weight:900;
+  line-height:1.0;
+  letter-spacing:-0.04em;
+  margin-bottom:1rem;
+  animation:fadeUp 0.6s 0.1s ease both;
+}
+h1 .accent{
+  background:linear-gradient(135deg,var(--accent),var(--blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-sub{
+  font-size:1.15rem;color:var(--text2);
+  max-width:520px;margin:0 auto 2.5rem;
+  line-height:1.7;font-weight:400;
+  animation:fadeUp 0.6s 0.2s ease both;
+}
+.hero-actions{
+  display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;
+  margin-bottom:3rem;
+  animation:fadeUp 0.6s 0.3s ease both;
+}
+.btn{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  padding:0.875rem 1.75rem;
+  font-family:'Outfit',sans-serif;
+  font-size:0.925rem;font-weight:600;
+  border:none;border-radius:10px;
+  cursor:pointer;text-decoration:none;
+  transition:all 0.2s;
+}
+.btn-primary{
+  background:var(--accent);color:#000;
+  box-shadow:0 0 30px rgba(0,212,255,0.3),0 4px 12px rgba(0,0,0,0.3);
+}
+.btn-primary:hover{background:#00b8d9;transform:translateY(-2px);box-shadow:0 0 40px rgba(0,212,255,0.4),0 8px 20px rgba(0,0,0,0.3);}
+.btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border2);}
+.btn-secondary:hover{background:var(--surface);transform:translateY(-2px);border-color:rgba(255,255,255,0.2);}
+.btn-discord{background:#5865f2;color:#fff;box-shadow:0 4px 12px rgba(88,101,242,0.3);}
+.btn-discord:hover{background:#4752d9;transform:translateY(-2px);}
+
+/* ── SERVER STATUS CARD ── */
+.server-card{
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:16px;
+  padding:1.5rem 2rem;
+  display:inline-flex;
+  align-items:center;
+  gap:2rem;
+  flex-wrap:wrap;
+  justify-content:center;
+  animation:fadeUp 0.6s 0.4s ease both;
+  position:relative;z-index:1;
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+}
+.server-card::before{
+  content:'';position:absolute;inset:0;border-radius:16px;
+  background:linear-gradient(135deg,rgba(0,212,255,0.05),rgba(59,130,246,0.05));
+  pointer-events:none;
+}
+.sc-stat{text-align:center;}
+.sc-val{font-size:1.5rem;font-weight:800;color:var(--text);letter-spacing:-0.02em;font-family:'JetBrains Mono',monospace;}
+.sc-val.green{color:var(--green);}
+.sc-val.gold{color:var(--gold);}
+.sc-label{font-size:0.75rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-top:0.2rem;}
+.sc-divider{width:1px;height:40px;background:var(--border);}
+.sc-ip{
+  display:flex;align-items:center;gap:0.75rem;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:8px;padding:0.5rem 1rem;
+}
+.sc-ip-text{font-family:'JetBrains Mono',monospace;font-size:0.9rem;color:var(--accent);font-weight:500;}
+.copy-btn{
+  background:none;border:none;cursor:pointer;
+  color:var(--text3);transition:color 0.2s;padding:0.2rem;
+  font-size:0.85rem;
+}
+.copy-btn:hover{color:var(--accent);}
+
+/* ── SECTIONS ── */
+section{padding:6rem 2rem;position:relative;}
+.container{max-width:1100px;margin:0 auto;}
+.section-label{
+  font-size:0.75rem;font-weight:700;letter-spacing:0.15em;
+  text-transform:uppercase;color:var(--accent);
+  margin-bottom:0.75rem;
+}
+.section-title{
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:800;letter-spacing:-0.03em;
+  line-height:1.1;margin-bottom:1rem;
+}
+.section-sub{
+  font-size:1rem;color:var(--text2);
+  max-width:520px;line-height:1.7;margin-bottom:3rem;
+}
+
+/* ── FEATURES ── */
+#features{background:var(--bg2);}
+.features-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1.5rem;
+}
+.feature-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:1.75rem;
+  transition:all 0.3s;
+  position:relative;overflow:hidden;
+}
+.feature-card::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--blue));
+  opacity:0;transition:opacity 0.3s;
+}
+.feature-card:hover{border-color:rgba(0,212,255,0.2);transform:translateY(-3px);box-shadow:0 20px 40px rgba(0,0,0,0.3);}
+.feature-card:hover::before{opacity:1;}
+.feature-icon{
+  width:44px;height:44px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;margin-bottom:1rem;
+}
+.fi-green{background:rgba(34,197,94,0.12);}
+.fi-blue{background:rgba(59,130,246,0.12);}
+.fi-gold{background:rgba(245,158,11,0.12);}
+.fi-accent{background:rgba(0,212,255,0.12);}
+.fi-red{background:rgba(239,68,68,0.12);}
+.fi-purple{background:rgba(168,85,247,0.12);}
+.feature-title{font-size:1.05rem;font-weight:700;margin-bottom:0.5rem;}
+.feature-desc{font-size:0.9rem;color:var(--text2);line-height:1.6;}
+
+/* ── LIVE STATUS ── */
+#status{background:var(--bg);}
+.status-big{
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:20px;padding:3rem;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:2rem;align-items:center;
+}
+@media(max-width:768px){.status-big{grid-template-columns:1fr;}}
+.status-left{}
+.status-indicator{
+  display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;
+}
+.status-dot-big{
+  width:16px;height:16px;border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 20px var(--green);
+  animation:pulse 2s ease-in-out infinite;
+}
+.status-dot-big.offline{background:var(--red);box-shadow:0 0 20px var(--red);animation:none;}
+.status-label-big{font-size:1.1rem;font-weight:700;}
+.status-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem;}
+.sstat{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;}
+.sstat-val{font-size:1.5rem;font-weight:800;font-family:'JetBrains Mono',monospace;color:var(--accent);}
+.sstat-label{font-size:0.78rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.2rem;}
+.status-right{}
+.ip-big{
+  background:var(--bg2);border:1px solid var(--border2);
+  border-radius:12px;padding:1.25rem 1.5rem;
+  margin-bottom:1rem;
+}
+.ip-big-label{font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);margin-bottom:0.4rem;}
+.ip-big-val{
+  font-family:'JetBrains Mono',monospace;
+  font-size:1.1rem;color:var(--accent);font-weight:500;
+}
+.join-steps{display:flex;flex-direction:column;gap:0.75rem;margin-top:1.5rem;}
+.jstep{display:flex;align-items:center;gap:0.75rem;}
+.jstep-num{
+  width:26px;height:26px;border-radius:6px;
+  background:rgba(0,212,255,0.12);
+  color:var(--accent);font-size:0.75rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.jstep-text{font-size:0.88rem;color:var(--text2);}
+
+/* ── RULES ── */
+#rules{background:var(--bg2);}
+.rules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;}
+.rule-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:1.5rem;
+  display:flex;gap:1rem;align-items:flex-start;
+  transition:border-color 0.2s,transform 0.2s;
+}
+.rule-card:hover{border-color:rgba(0,212,255,0.2);transform:translateX(4px);}
+.rule-num{
+  width:32px;height:32px;border-radius:8px;
+  background:rgba(0,212,255,0.1);
+  color:var(--accent);font-size:0.8rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-family:'JetBrains Mono',monospace;
+}
+.rule-title{font-size:0.95rem;font-weight:700;margin-bottom:0.3rem;}
+.rule-desc{font-size:0.85rem;color:var(--text2);line-height:1.5;}
+
+/* ── STAFF ── */
+#staff{background:var(--bg);}
+.staff-grid{display:flex;flex-wrap:wrap;gap:1.25rem;}
+.staff-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:1.5rem;
+  display:flex;flex-direction:column;align-items:center;
+  gap:0.6rem;min-width:150px;flex:1;max-width:180px;
+  transition:all 0.25s;
+}
+.staff-card:hover{border-color:rgba(0,212,255,0.25);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.3);}
+.staff-av{
+  width:60px;height:60px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;font-weight:900;
+  font-family:'JetBrains Mono',monospace;
+  border:2px solid var(--border2);
+}
+.staff-name{font-size:0.95rem;font-weight:700;}
+.staff-role{
+  font-size:0.72rem;font-weight:700;letter-spacing:0.1em;
+  text-transform:uppercase;padding:0.25rem 0.7rem;border-radius:999px;
+}
+.r-owner{background:rgba(245,158,11,0.15);color:var(--gold);}
+.r-admin{background:rgba(239,68,68,0.12);color:#f87171;}
+.r-mod{background:rgba(59,130,246,0.12);color:#93c5fd;}
+.r-helper{background:rgba(34,197,94,0.12);color:var(--green);}
+
+/* ── SHOP PREVIEW ── */
+#shop{background:var(--bg2);}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.25rem;}
+.shop-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:1.5rem;
+  display:flex;flex-direction:column;gap:0.6rem;
+  transition:all 0.25s;position:relative;overflow:hidden;
+}
+.shop-card.featured{border-color:rgba(0,212,255,0.3);background:linear-gradient(135deg,var(--surface),rgba(0,212,255,0.04));}
+.shop-card:hover{transform:translateY(-3px);box-shadow:0 20px 40px rgba(0,0,0,0.3);}
+.shop-badge{
+  font-size:0.68rem;font-weight:700;letter-spacing:0.12em;
+  text-transform:uppercase;padding:0.2rem 0.6rem;
+  border-radius:4px;width:fit-content;border:1px solid;
+}
+.sb-rank{background:rgba(168,85,247,0.12);color:#c084fc;border-color:rgba(168,85,247,0.3);}
+.sb-cos{background:rgba(236,72,153,0.12);color:#f472b6;border-color:rgba(236,72,153,0.3);}
+.sb-crate{background:rgba(34,197,94,0.12);color:var(--green);border-color:rgba(34,197,94,0.3);}
+.sb-coins{background:rgba(245,158,11,0.12);color:var(--gold);border-color:rgba(245,158,11,0.3);}
+.sb-hot{background:rgba(0,212,255,0.12);color:var(--accent);border-color:rgba(0,212,255,0.3);}
+.shop-icon{font-size:2rem;margin:0.25rem 0;}
+.shop-name{font-size:1rem;font-weight:700;}
+.shop-desc{font-size:0.83rem;color:var(--text2);line-height:1.5;flex:1;}
+.shop-price{font-size:1.3rem;font-weight:800;color:var(--gold);font-family:'JetBrains Mono',monospace;}
+.shop-btn{
+  background:var(--accent);color:#000;border:none;
+  padding:0.6rem;border-radius:8px;font-family:'Outfit',sans-serif;
+  font-size:0.85rem;font-weight:700;cursor:pointer;
+  transition:all 0.2s;margin-top:0.25rem;
+}
+.shop-btn:hover{background:#00b8d9;transform:translateY(-1px);}
+
+/* ── ABOUT ── */
+#about{background:var(--bg);}
+.about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:4rem;align-items:center;}
+@media(max-width:768px){.about-grid{grid-template-columns:1fr;}}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem;}
+.astat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;}
+.astat-num{font-size:1.8rem;font-weight:900;letter-spacing:-0.03em;color:var(--accent);}
+.astat-label{font-size:0.78rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.2rem;font-weight:600;}
+.about-img{
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:20px;padding:2rem;
+  display:flex;flex-direction:column;gap:1rem;
+}
+.about-img-icon{font-size:4rem;text-align:center;margin-bottom:0.5rem;}
+.about-feature{display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:var(--bg2);border-radius:8px;}
+.af-icon{font-size:1.1rem;flex-shrink:0;}
+.af-text{font-size:0.88rem;color:var(--text2);}
+
+/* ── FAQ ── */
+#faq{background:var(--bg2);}
+.faq-list{display:flex;flex-direction:column;gap:0.75rem;max-width:700px;}
+.faq-item{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;overflow:hidden;
+}
+.faq-q{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 1.5rem;background:none;border:none;
+  color:var(--text);font-family:'Outfit',sans-serif;
+  font-size:0.95rem;font-weight:600;text-align:left;
+  cursor:pointer;gap:1rem;transition:background 0.2s;
+}
+.faq-q:hover{background:rgba(255,255,255,0.03);}
+.faq-arrow{font-size:0.8rem;color:var(--text3);transition:transform 0.3s;flex-shrink:0;}
+.faq-item.open .faq-arrow{transform:rotate(180deg);}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height 0.35s ease,padding 0.35s ease;
+  font-size:0.88rem;color:var(--text2);line-height:1.7;
+  padding:0 1.5rem;
+}
+.faq-item.open .faq-a{max-height:200px;padding:0 1.5rem 1.25rem;}
+
+/* ── CONTACT ── */
+#contact{background:var(--bg);}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+@media(max-width:768px){.contact-grid{grid-template-columns:1fr;}}
+.contact-links{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;}
+.contact-link-card{
+  display:flex;align-items:center;gap:1rem;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:1.1rem 1.25rem;
+  text-decoration:none;color:var(--text);
+  transition:all 0.2s;
+}
+.contact-link-card:hover{border-color:rgba(0,212,255,0.3);transform:translateX(4px);}
+.clc-icon{font-size:1.4rem;flex-shrink:0;}
+.clc-title{font-size:0.92rem;font-weight:600;}
+.clc-sub{font-size:0.78rem;color:var(--text3);}
+.clc-arrow{margin-left:auto;color:var(--text3);font-size:0.85rem;}
+.contact-form{background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:2rem;}
+.cfield{margin-bottom:1.1rem;}
+.cfield label{display:block;font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:0.4rem;}
+.cfield input,.cfield textarea,.cfield select{
+  width:100%;background:var(--bg2);border:1px solid var(--border);
+  color:var(--text);font-family:'Outfit',sans-serif;font-size:0.92rem;
+  padding:0.75rem 1rem;border-radius:8px;outline:none;
+  transition:border-color 0.2s,background 0.2s;
+}
+.cfield input:focus,.cfield textarea:focus{border-color:var(--accent);background:rgba(0,212,255,0.03);}
+.cfield input::placeholder,.cfield textarea::placeholder{color:var(--text3);}
+.cfield textarea{resize:vertical;}
+.form-success-msg{display:none;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:var(--green);border-radius:8px;padding:0.75rem 1rem;font-size:0.88rem;margin-bottom:1rem;}
+
+/* ── VOTE ── */
+#vote{background:var(--bg2);}
+.vote-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;}
+.vote-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:1.5rem;text-align:center;
+  transition:all 0.25s;text-decoration:none;color:var(--text);display:block;
+}
+.vote-card:hover{border-color:rgba(0,212,255,0.3);transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,0.3);}
+.vote-icon{font-size:2rem;margin-bottom:0.75rem;}
+.vote-site{font-size:0.92rem;font-weight:700;margin-bottom:0.25rem;}
+.vote-desc{font-size:0.78rem;color:var(--text3);}
+.vote-cta{display:inline-block;margin-top:0.75rem;font-size:0.78rem;font-weight:700;color:var(--accent);letter-spacing:0.05em;text-transform:uppercase;}
+
+/* ── DISCORD BANNER ── */
+#discord-banner{
+  background:linear-gradient(135deg,#3b3fbd,#5865f2,#3b82f6);
+  padding:5rem 2rem;text-align:center;
+}
+.db-inner{max-width:600px;margin:0 auto;}
+.db-icon{font-size:3rem;margin-bottom:1rem;}
+.db-title{font-size:2.5rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:1rem;}
+.db-sub{font-size:1rem;opacity:0.85;margin-bottom:2rem;line-height:1.6;}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--bg);
+  border-top:1px solid var(--border);
+  padding:3rem 2rem 2rem;
+}
+.footer-inner{max-width:1100px;margin:0 auto;}
+.footer-top{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:3rem;margin-bottom:2.5rem;
+  padding-bottom:2.5rem;border-bottom:1px solid var(--border);
+}
+@media(max-width:768px){.footer-top{grid-template-columns:1fr;gap:2rem;}}
+.footer-brand{}
+.footer-logo{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.75rem;text-decoration:none;}
+.footer-logo-icon{width:30px;height:30px;background:linear-gradient(135deg,var(--accent),var(--blue));border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;}
+.footer-logo-text{font-size:0.95rem;font-weight:800;color:var(--text);}
+.footer-brand p{font-size:0.85rem;color:var(--text3);line-height:1.6;max-width:260px;}
+.footer-col h4{font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);margin-bottom:1rem;}
+.footer-col a{display:block;font-size:0.88rem;color:var(--text2);text-decoration:none;margin-bottom:0.5rem;transition:color 0.2s;}
+.footer-col a:hover{color:var(--accent);}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-bottom p{font-size:0.8rem;color:var(--text3);}
+.footer-bottom a{color:var(--text3);text-decoration:none;transition:color 0.2s;}
+.footer-bottom a:hover{color:var(--accent);}
+
+/* ── LEGAL SECTIONS ── */
+#privacy-page,#terms-page,#contact-section{padding:6rem 2rem;}
+.legal-content{max-width:720px;}
+.legal-content h3{font-size:1.05rem;font-weight:700;color:var(--accent);margin:1.5rem 0 0.5rem;}
+.legal-content p{font-size:0.9rem;color:var(--text2);line-height:1.75;margin-bottom:0.75rem;}
+.legal-date{font-size:0.8rem;color:var(--text3);margin-bottom:2rem;font-style:italic;}
+
+/* ── COOKIE BANNER ── */
+#cookie-banner{
+  position:fixed;bottom:0;left:0;right:0;z-index:1000;
+  background:var(--bg2);border-top:1px solid var(--border2);
+  padding:1.25rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1.5rem;flex-wrap:wrap;
+  transform:translateY(100%);transition:transform 0.4s ease;
+  box-shadow:0 -8px 32px rgba(0,0,0,0.4);
+}
+#cookie-banner.show{transform:translateY(0);}
+.cookie-text{font-size:0.85rem;color:var(--text2);line-height:1.5;flex:1;min-width:250px;}
+.cookie-text a{color:var(--accent);}
+.cookie-btns{display:flex;gap:0.75rem;flex-wrap:wrap;}
+.c-accept{background:var(--accent);color:#000;border:none;padding:0.6rem 1.25rem;border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.c-accept:hover{background:#00b8d9;}
+.c-decline{background:var(--surface);color:var(--text2);border:1px solid var(--border);padding:0.6rem 1.25rem;border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.85rem;cursor:pointer;transition:all 0.2s;}
+.c-decline:hover{border-color:var(--border2);color:var(--text);}
+
+/* ── CART BUTTON ROW ── */
+.shop-btn-row{display:flex;gap:0.5rem;margin-top:0.25rem;}
+.shop-btn-cart{
+  flex:1;background:var(--surface2);color:var(--accent);
+  border:1px solid rgba(0,212,255,0.3);border-radius:8px;
+  padding:0.6rem 0.5rem;font-family:'Outfit',sans-serif;
+  font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.2s;
+}
+.shop-btn-cart:hover{background:rgba(0,212,255,0.1);transform:translateY(-1px);}
+.shop-btn-cart.added{background:rgba(34,197,94,0.15);color:var(--green);border-color:rgba(34,197,94,0.3);}
+.shop-btn-buy{
+  flex:1;background:var(--accent);color:#000;
+  border:none;border-radius:8px;
+  padding:0.6rem 0.5rem;font-family:'Outfit',sans-serif;
+  font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.2s;
+}
+.shop-btn-buy:hover{background:#00b8d9;transform:translateY(-1px);}
+
+/* ── CART FAB ── */
+#cart-fab{
+  position:fixed;bottom:2rem;right:2rem;z-index:500;
+  background:var(--accent);color:#000;border:none;
+  border-radius:50px;padding:0.85rem 1.5rem;
+  font-family:'Outfit',sans-serif;font-size:0.9rem;font-weight:800;
+  cursor:pointer;display:none;align-items:center;gap:0.6rem;
+  box-shadow:0 8px 30px rgba(0,212,255,0.4),0 4px 0 #0099bb;
+  transition:all 0.2s;
+}
+#cart-fab:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,212,255,0.5),0 6px 0 #0099bb;}
+#cart-fab-count{
+  background:#000;color:var(--accent);
+  border-radius:50%;width:22px;height:22px;
+  font-size:0.75rem;display:flex;align-items:center;justify-content:center;
+}
+
+/* ── CART OVERLAY ── */
+#cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:600;display:none;backdrop-filter:blur(4px);}
+#cart-overlay.open{display:block;}
+
+/* ── CART DRAWER ── */
+#cart-drawer{
+  position:fixed;top:0;right:0;bottom:0;width:400px;
+  background:var(--bg2);border-left:1px solid var(--border2);
+  z-index:700;display:flex;flex-direction:column;
+  transform:translateX(100%);transition:transform 0.3s ease;
+  box-shadow:-16px 0 60px rgba(0,0,0,0.5);
+}
+#cart-drawer.open{transform:translateX(0);}
+.cart-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.25rem 1.5rem;
+  border-bottom:1px solid var(--border);
+}
+.cart-head-title{font-size:1rem;font-weight:800;display:flex;align-items:center;gap:0.5rem;}
+.cart-head-close{background:none;border:none;color:var(--text2);font-size:1.2rem;cursor:pointer;transition:color 0.2s;padding:0.25rem;}
+.cart-head-close:hover{color:var(--text);}
+.cart-body{flex:1;overflow-y:auto;padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:0.75rem;}
+.cart-empty-state{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;padding:2rem;gap:0.75rem;
+}
+.cart-empty-icon{font-size:3rem;}
+.cart-empty-text{color:var(--text3);font-size:0.9rem;}
+.cart-item{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:1rem;
+  display:flex;align-items:center;gap:0.75rem;
+}
+.ci-info{flex:1;}
+.ci-name{font-size:0.9rem;font-weight:700;margin-bottom:0.2rem;}
+.ci-price{font-size:0.82rem;color:var(--gold);font-family:'JetBrains Mono',monospace;font-weight:600;}
+.ci-qty{display:flex;align-items:center;gap:0.4rem;}
+.ci-qty-btn{
+  width:24px;height:24px;border-radius:6px;
+  background:var(--bg2);border:1px solid var(--border);
+  color:var(--text);font-size:0.85rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.15s;
+}
+.ci-qty-btn:hover{background:var(--surface2);border-color:var(--accent);color:var(--accent);}
+.ci-qty-num{font-size:0.85rem;font-weight:700;min-width:16px;text-align:center;}
+.ci-remove{background:none;border:none;color:var(--text3);cursor:pointer;font-size:0.85rem;transition:color 0.2s;padding:0.2rem;}
+.ci-remove:hover{color:var(--red);}
+.cart-foot{
+  padding:1.25rem 1.5rem;border-top:1px solid var(--border);
+  display:flex;flex-direction:column;gap:0.75rem;
+}
+.cart-total-row{display:flex;justify-content:space-between;align-items:center;}
+.cart-total-label{font-size:0.85rem;font-weight:700;color:var(--text2);}
+.cart-total-val{font-size:1.3rem;font-weight:900;color:var(--gold);font-family:'JetBrains Mono',monospace;}
+.cart-checkout-btn{
+  background:var(--accent);color:#000;border:none;
+  border-radius:10px;padding:0.9rem;
+  font-family:'Outfit',sans-serif;font-size:0.95rem;font-weight:800;
+  cursor:pointer;transition:all 0.2s;
+  box-shadow:0 4px 16px rgba(0,212,255,0.3);
+}
+.cart-checkout-btn:hover{background:#00b8d9;transform:translateY(-1px);}
+.cart-continue-btn{
+  background:none;border:1px solid var(--border);color:var(--text2);
+  border-radius:8px;padding:0.65rem;
+  font-family:'Outfit',sans-serif;font-size:0.85rem;font-weight:600;
+  cursor:pointer;transition:all 0.2s;text-align:center;
+}
+.cart-continue-btn:hover{border-color:var(--border2);color:var(--text);}
+.cart-secure-note{font-size:0.75rem;color:var(--text3);text-align:center;}
+@media(max-width:480px){#cart-drawer{width:100%;}}
+
+/* ── STAFF PORTAL ── */
+.sp-tab{background:var(--surface);border:1px solid var(--border);color:var(--text2);padding:0.55rem 1.1rem;border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.875rem;font-weight:600;cursor:pointer;transition:all 0.15s;}
+.sp-tab:hover{border-color:var(--border2);color:var(--text);}
+.sp-tab.active{background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.4);color:var(--gold);}
+.sp-panel{display:none;}
+.sp-panel.active{display:block;}
+.sp-app-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:0.75rem;}
+.sp-app-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;flex-wrap:wrap;gap:0.5rem;}
+.sp-app-name{font-size:1rem;font-weight:700;}
+.sp-app-role{font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:4px;background:rgba(0,212,255,0.1);color:var(--accent);border:1px solid rgba(0,212,255,0.2);}
+.sp-app-status{font-size:0.75rem;font-weight:700;padding:0.25rem 0.7rem;border-radius:999px;}
+.sp-status-pending{background:rgba(245,158,11,0.12);color:var(--gold);border:1px solid rgba(245,158,11,0.3);}
+.sp-status-approved{background:rgba(34,197,94,0.12);color:var(--green);border:1px solid rgba(34,197,94,0.3);}
+.sp-status-rejected{background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.3);}
+.sp-app-field{margin-bottom:0.6rem;}
+.sp-app-label{font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);}
+.sp-app-val{font-size:0.875rem;color:var(--text2);margin-top:0.15rem;line-height:1.5;}
+.sp-app-actions{display:flex;gap:0.5rem;margin-top:1rem;flex-wrap:wrap;}
+.sp-btn-approve{background:rgba(34,197,94,0.12);color:var(--green);border:1px solid rgba(34,197,94,0.3);padding:0.45rem 1rem;border-radius:6px;font-family:'Outfit',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.15s;}
+.sp-btn-approve:hover{background:rgba(34,197,94,0.22);}
+.sp-btn-reject{background:rgba(239,68,68,0.1);color:#f87171;border:1px solid rgba(239,68,68,0.3);padding:0.45rem 1rem;border-radius:6px;font-family:'Outfit',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.15s;}
+.sp-btn-reject:hover{background:rgba(239,68,68,0.2);}
+.sp-rule-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;display:flex;align-items:center;gap:1rem;}
+.sp-rule-num{width:28px;height:28px;border-radius:6px;background:rgba(0,212,255,0.1);color:var(--accent);font-size:0.78rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sp-rule-text{flex:1;font-size:0.875rem;color:var(--text2);}
+
+.dd-item{width:100%;display:flex;align-items:center;padding:0.65rem 0.9rem;background:none;border:none;color:var(--text2);font-family:'Outfit',sans-serif;font-size:0.875rem;font-weight:500;cursor:pointer;border-radius:8px;transition:all 0.15s;text-align:left;}
+.dd-item:hover{background:var(--surface);color:var(--text);}
+.dd-item-danger{color:#f87171!important;}
+.dd-item-danger:hover{background:rgba(239,68,68,0.08)!important;}
+
+/* ── ACCOUNT MODAL ── */
+#account-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:800;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);padding:1rem;}
+#account-modal-overlay.open{display:flex;}
+#account-modal{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;width:100%;max-width:820px;max-height:90vh;display:flex;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.6);position:relative;}
+.am-close{position:absolute;top:1rem;right:1rem;background:var(--surface);border:1px solid var(--border);color:var(--text2);width:32px;height:32px;border-radius:8px;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;transition:all 0.2s;}
+.am-close:hover{color:var(--text);background:var(--surface2);}
+.am-sidebar{width:220px;min-width:220px;background:rgba(255,255,255,0.02);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;}
+.am-profile-header{padding:1.5rem 1.2rem 1.2rem;border-bottom:1px solid var(--border);text-align:center;}
+.am-profile-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--blue));display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;color:#000;margin:0 auto 0.6rem;border:2px solid rgba(0,212,255,0.3);}
+.am-profile-name{font-size:0.85rem;font-weight:700;color:var(--text);}
+.am-profile-email{font-size:0.72rem;color:var(--text3);margin-top:0.2rem;word-break:break-all;}
+.am-nav{padding:0.5rem;}
+.am-nav-group{font-size:0.62rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--text3);padding:0.75rem 0.75rem 0.3rem;}
+.am-nav-item{display:flex;align-items:center;gap:0.6rem;width:100%;padding:0.6rem 0.75rem;background:none;border:none;color:var(--text2);font-family:'Outfit',sans-serif;font-size:0.875rem;font-weight:500;text-align:left;cursor:pointer;border-radius:8px;transition:all 0.15s;}
+.am-nav-item:hover{background:var(--surface);color:var(--text);}
+.am-nav-item.active{background:rgba(0,212,255,0.1);color:var(--accent);font-weight:600;}
+.am-nav-item-icon{font-size:0.95rem;width:20px;text-align:center;flex-shrink:0;}
+.am-nav-item-danger{color:rgba(248,113,113,0.7)!important;}
+.am-nav-item-danger:hover{background:rgba(239,68,68,0.08)!important;color:#f87171!important;}
+.am-nav-item-danger.active{background:rgba(239,68,68,0.1)!important;color:#f87171!important;}
+.am-content{flex:1;overflow-y:auto;padding:2rem;}
+.am-panel{display:none;}
+.am-panel.active{display:block;}
+.am-panel-title{font-size:1.2rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:0.3rem;}
+.am-panel-sub{font-size:0.875rem;color:var(--text2);margin-bottom:1.75rem;line-height:1.6;}
+.am-field{margin-bottom:1.1rem;}
+.am-field label{display:block;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:0.4rem;}
+.am-field input,.am-field select,.am-field textarea{width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);font-family:'Outfit',sans-serif;font-size:0.9rem;padding:0.7rem 0.9rem;border-radius:8px;outline:none;transition:border-color 0.2s;}
+.am-field input:focus,.am-field textarea:focus{border-color:var(--accent);}
+.am-field-row{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;}
+.am-btn{display:inline-flex;align-items:center;gap:0.4rem;background:var(--accent);color:#000;border:none;padding:0.7rem 1.5rem;border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.875rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.am-btn:hover{background:#00b8d9;transform:translateY(-1px);}
+.am-btn-danger{background:rgba(239,68,68,0.12)!important;color:#f87171!important;border:1px solid rgba(239,68,68,0.3)!important;}
+.am-btn-danger:hover{background:rgba(239,68,68,0.22)!important;transform:none!important;}
+.am-divider{height:1px;background:var(--border);margin:1.5rem 0;}
+.am-info-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.9rem;}
+.am-info-icon{font-size:1.3rem;flex-shrink:0;}
+.am-info-label{font-size:0.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;}
+.am-info-val{font-size:0.9rem;font-weight:600;color:var(--text);margin-top:0.15rem;}
+.am-toggle-row{display:flex;align-items:center;justify-content:space-between;padding:0.9rem 0;border-bottom:1px solid var(--border);}
+.am-toggle-row:last-child{border-bottom:none;}
+.am-toggle-title{font-size:0.9rem;font-weight:600;}
+.am-toggle-desc{font-size:0.78rem;color:var(--text3);margin-top:0.15rem;}
+.am-toggle{position:relative;display:inline-block;width:40px;height:22px;flex-shrink:0;}
+.am-toggle input{opacity:0;width:0;height:0;}
+.am-toggle-slider{position:absolute;cursor:pointer;inset:0;background:var(--surface2);border:1px solid var(--border2);border-radius:22px;transition:0.2s;}
+.am-toggle-slider::before{content:'';position:absolute;height:16px;width:16px;left:2px;bottom:2px;background:var(--text3);border-radius:50%;transition:0.2s;}
+.am-toggle input:checked + .am-toggle-slider{background:rgba(0,212,255,0.2);border-color:var(--accent);}
+.am-toggle input:checked + .am-toggle-slider::before{transform:translateX(18px);background:var(--accent);}
+.am-empty{text-align:center;padding:3rem 1rem;}
+.am-empty-icon{font-size:3rem;margin-bottom:0.75rem;}
+.am-empty-text{color:var(--text3);font-size:0.9rem;}
+.am-success{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:var(--green);border-radius:8px;padding:0.7rem 1rem;font-size:0.875rem;margin-bottom:1rem;display:none;}
+.am-error{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;border-radius:8px;padding:0.7rem 1rem;font-size:0.875rem;margin-bottom:1rem;display:none;}
+@media(max-width:640px){#account-modal{flex-direction:column;}.am-sidebar{width:100%;min-width:unset;border-right:none;border-bottom:1px solid var(--border);}.am-nav{display:flex;flex-wrap:wrap;gap:0.25rem;padding:0.5rem;}.am-nav-group{display:none;}.am-nav-item{padding:0.4rem 0.75rem;font-size:0.78rem;}.am-content{padding:1.25rem;}}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  nav{padding:0 1.25rem;}
+  .nav-links{display:none;}
+  h1{font-size:2.8rem;}
+  .server-card{gap:1.25rem;padding:1.25rem;}
+  .sc-divider{display:none;}
+  section{padding:4rem 1.25rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-icon">⛏</div>
+    <span class="nav-logo-text">Poclus<span>SMP</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#status">Status</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#rules">Rules</a></li>
+    <li><a href="#staff">Staff</a></li>
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#apply">Apply</a></li>
+    <li id="nav-staff-link" style="display:none"><a href="#" onclick="openStaffPortal()" style="color:var(--gold);font-weight:700;">🛡️ Staff Portal</a></li>
+    <li><a href="https://discord.gg/c2FQM6bNcN" target="_blank" class="nav-cta btn">Join Discord</a></li>
+    <li id="nav-auth-item">
+      <button id="nav-login-btn" onclick="authLogin()" style="background:var(--surface2);color:var(--text);border:1px solid var(--border2);padding:0.5rem 1rem;border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.875rem;font-weight:600;cursor:pointer;transition:all 0.2s;">Login</button>
+      <div id="nav-user-btn" style="display:none;position:relative;">
+        <button onclick="toggleUserMenu()" style="display:flex;align-items:center;gap:0.5rem;background:var(--surface2);border:1px solid var(--border2);color:var(--text);padding:0.4rem 0.75rem;border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.875rem;font-weight:600;cursor:pointer;">
+          <div id="nav-avatar" style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--blue));display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:800;color:#000;flex-shrink:0;">?</div>
+          <span id="nav-username">Player</span>
+          <span style="font-size:0.7rem;color:var(--text3);">▼</span>
+        </button>
+        <!-- DROPDOWN -->
+        <div id="user-dropdown" style="display:none;position:absolute;top:calc(100% + 10px);right:0;width:260px;background:var(--bg2);border:1px solid var(--border2);border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,0.6);z-index:300;overflow:hidden;">
+          <!-- Profile header -->
+          <div style="padding:1.1rem 1.2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.75rem;">
+            <div id="dd-avatar-big" style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--blue));display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:800;color:#000;flex-shrink:0;"></div>
+            <div style="min-width:0;">
+              <div id="dd-name" style="font-size:0.9rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></div>
+              <div id="dd-email" style="font-size:0.75rem;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></div>
+            </div>
+          </div>
+          <!-- Menu items -->
+          <div style="padding:0.4rem;">
+            <button onclick="openAccountModal('profile');toggleUserMenu()" class="dd-item">👤 &nbsp;My Profile</button>
+            <button onclick="openAccountModal('settings');toggleUserMenu()" class="dd-item">⚙️ &nbsp;Account Settings</button>
+            <button onclick="openAccountModal('security');toggleUserMenu()" class="dd-item">🔒 &nbsp;Security</button>
+            <button onclick="openAccountModal('purchases');toggleUserMenu()" class="dd-item">🧾 &nbsp;My Purchases</button>
+            <button onclick="openAccountModal('connections');toggleUserMenu()" class="dd-item">🔗 &nbsp;Connected Apps</button>
+            <div style="height:1px;background:var(--border);margin:0.4rem 0;"></div>
+            <a href="https://discord.gg/c2FQM6bNcN" target="_blank" class="dd-item" style="text-decoration:none;display:flex;align-items:center;">💬 &nbsp;Discord Server</a>
+            <div style="height:1px;background:var(--border);margin:0.4rem 0;"></div>
+            <button onclick="authLogout()" class="dd-item dd-item-danger">🚪 &nbsp;Sign Out</button>
+          </div>
+        </div>
+      </div>
+    </li>
+  <div class="status-pill" id="nav-status">
+    <div class="status-dot" id="nav-dot"></div>
+    <span id="nav-status-text">Checking…</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-badge">⚡ Survival Multiplayer — All Versions Welcome</div>
+  <h1>Welcome to<br><span class="accent">Poclus SMP</span></h1>
+  <p class="hero-sub">A fair, community-driven Minecraft survival server where every block tells a story. No pay-to-win. Just good vibes and great gameplay.</p>
+  <div class="hero-actions">
+    <a href="#status" class="btn btn-primary">⛏ &nbsp;Join the Server</a>
+    <a href="https://discord.gg/c2FQM6bNcN" target="_blank" class="btn btn-discord">💬 &nbsp;Join Discord</a>
+    <a href="#features" class="btn btn-secondary">Explore Features →</a>
+  </div>
+  <div class="server-card" id="hero-card">
+    <div class="sc-stat">
+      <div class="sc-val green" id="hero-online">—</div>
+      <div class="sc-label">Players Online</div>
+    </div>
+    <div class="sc-divider"></div>
+    <div class="sc-stat">
+      <div class="sc-val gold" id="hero-max">—</div>
+      <div class="sc-label">Max Players</div>
+    </div>
+    <div class="sc-divider"></div>
+    <div class="sc-stat">
+      <div class="sc-val" id="hero-version">1.21</div>
+      <div class="sc-label">Version</div>
+    </div>
+    <div class="sc-divider"></div>
+    <div class="sc-ip">
+      <span class="sc-ip-text">poclussmp.minecraft.best</span>
+      <button class="copy-btn" onclick="copyIP()" title="Copy IP">📋</button>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE STATUS -->
+<section id="status">
+  <div class="container">
+    <p class="section-label reveal">Live Server Status</p>
+    <h2 class="section-title reveal">Is the server <span style="color:var(--accent)">online?</span></h2>
+    <p class="section-sub reveal">Real-time status pulled directly from your Minecraft server. Updates every 60 seconds.</p>
+    <div class="status-big reveal">
+      <div class="status-left">
+        <div class="status-indicator">
+          <div class="status-dot-big" id="status-dot-big"></div>
+          <span class="status-label-big" id="status-label-big">Checking…</span>
+        </div>
+        <p style="font-size:0.88rem;color:var(--text3);margin-bottom:1.5rem;">Server: <code style="color:var(--accent);background:var(--bg2);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85rem;">poclussmp.minecraft.best:25565</code></p>
+        <div class="status-stats">
+          <div class="sstat">
+            <div class="sstat-val" id="stat-online">—</div>
+            <div class="sstat-label">Players Online</div>
+          </div>
+          <div class="sstat">
+            <div class="sstat-val" id="stat-max">—</div>
+            <div class="sstat-label">Max Slots</div>
+          </div>
+          <div class="sstat">
+            <div class="sstat-val" id="stat-version">—</div>
+            <div class="sstat-label">Version</div>
+          </div>
+          <div class="sstat">
+            <div class="sstat-val" id="stat-ping">—</div>
+            <div class="sstat-label">Status</div>
+          </div>
+        </div>
+      </div>
+      <div class="status-right">
+        <div class="ip-big">
+          <div class="ip-big-label">Server IP</div>
+          <div class="ip-big-val">poclussmp.minecraft.best</div>
+        </div>
+        <div class="ip-big">
+          <div class="ip-big-label">Port</div>
+          <div class="ip-big-val">25565 (default)</div>
+        </div>
+        <div class="join-steps">
+          <div class="jstep"><div class="jstep-num">1</div><span class="jstep-text">Launch Minecraft All versions welcome+</span></div>
+          <div class="jstep"><div class="jstep-num">2</div><span class="jstep-text">Click Multiplayer → Add Server</span></div>
+          <div class="jstep"><div class="jstep-num">3</div><span class="jstep-text">Paste the IP and click Done</span></div>
+          <div class="jstep"><div class="jstep-num">4</div><span class="jstep-text">Click Join Server and have fun!</span></div>
+        </div>
+        <button class="btn btn-primary" style="width:100%;margin-top:1.25rem;justify-content:center;" onclick="copyIP()">📋 &nbsp;Copy Server IP</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <p class="section-label reveal">Why play with us?</p>
+    <h2 class="section-title reveal">Everything you <span style="color:var(--accent)">need</span></h2>
+    <p class="section-sub reveal">Poclus SMP is built for players who want a genuine survival experience with a great community.</p>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-green">🌿</div>
+        <div class="feature-title">Vanilla Survival</div>
+        <div class="feature-desc">Pure survival gameplay the way it was meant to be. No game-breaking plugins, just you and the world.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-blue">🤝</div>
+        <div class="feature-title">Friendly Community</div>
+        <div class="feature-desc">A welcoming, mature community of players who love the game. New players are always welcome.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-gold">⚖️</div>
+        <div class="feature-title">Zero Pay-to-Win</div>
+        <div class="feature-desc">Every purchase is purely cosmetic. Your skill and dedication determine your progress, not your wallet.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-accent">⚡</div>
+        <div class="feature-title">24/7 Uptime</div>
+        <div class="feature-desc">High-performance server running 24 hours a day, 7 days a week. Play whenever you want.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-purple">🗺️</div>
+        <div class="feature-title">Live World Map</div>
+        <div class="feature-desc">Explore the entire world from your browser with our live Dynmap. See where players are in real time.</div>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-red">🛡️</div>
+        <div class="feature-title">Active Moderation</div>
+        <div class="feature-desc">Dedicated staff team keeping the server safe from griefers, hackers, and toxic behaviour.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RULES -->
+<section id="rules">
+  <div class="container">
+    <p class="section-label reveal">Server Rules</p>
+    <h2 class="section-title reveal">Play <span style="color:var(--accent)">fair</span>, play <span style="color:var(--green)">safe</span></h2>
+    <p class="section-sub reveal">We keep things simple. Follow these rules and everyone has a great time.</p>
+    <div class="rules-grid">
+      <div class="rule-card reveal"><div class="rule-num">01</div><div><div class="rule-title">Respect Everyone</div><div class="rule-desc">Treat all players with kindness. Harassment, hate speech, and toxicity will result in a permanent ban.</div></div></div>
+      <div class="rule-card reveal"><div class="rule-num">02</div><div><div class="rule-title">No Griefing</div><div class="rule-desc">Do not destroy, steal from, or tamper with other players' builds or chests without permission.</div></div></div>
+      <div class="rule-card reveal"><div class="rule-num">03</div><div><div class="rule-title">No Cheating</div><div class="rule-desc">Hacked clients, x-ray texture packs, and game exploit abuse are strictly forbidden.</div></div></div>
+      <div class="rule-card reveal"><div class="rule-num">04</div><div><div class="rule-title">No Spamming</div><div class="rule-desc">Keep chat clean and friendly. No advertising, spam, excessive caps, or inappropriate content.</div></div></div>
+      <div class="rule-card reveal"><div class="rule-num">05</div><div><div class="rule-title">Build Thoughtfully</div><div class="rule-desc">Leave at least 100 blocks of space between your build and others' land unless you have permission.</div></div></div>
+      <div class="rule-card reveal"><div class="rule-num">06</div><div><div class="rule-title">Staff Word is Final</div><div class="rule-desc">Respect staff decisions. If you disagree, raise a ticket in Discord — don't argue in chat.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STAFF -->
+<section id="staff">
+  <div class="container">
+    <p class="section-label reveal">The Team</p>
+    <h2 class="section-title reveal">Meet our <span style="color:var(--accent)">Staff</span></h2>
+    <p class="section-sub reveal">A dedicated team keeping Poclus SMP safe and fun for everyone.</p>
+    <div class="staff-grid reveal">
+      <div class="staff-card">
+        <div class="staff-av" style="background:linear-gradient(135deg,#f59e0b22,#f59e0b44);color:#f59e0b;">PO</div>
+        <div class="staff-name">Poclus</div>
+        <div class="staff-role r-owner">Owner</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-av" style="background:linear-gradient(135deg,#ef444422,#ef444444);color:#f87171;">P2</div>
+        <div class="staff-name">Player2</div>
+        <div class="staff-role r-admin">Admin</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-av" style="background:linear-gradient(135deg,#3b82f622,#3b82f644);color:#93c5fd;">P3</div>
+        <div class="staff-name">Player3</div>
+        <div class="staff-role r-mod">Moderator</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-av" style="background:linear-gradient(135deg,#22c55e22,#22c55e44);color:#4ade80;">P4</div>
+        <div class="staff-name">Player4</div>
+        <div class="staff-role r-helper">Helper</div>
+      </div>
+    </div>
+    <p style="margin-top:2rem;font-size:0.85rem;color:var(--text3);">Want to join the team? <a href="#contact" style="color:var(--accent);">Apply for staff →</a></p>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section id="shop">
+  <div class="container">
+    <p class="section-label reveal">Support the Server</p>
+    <h2 class="section-title reveal">The <span style="color:var(--accent)">Shop</span></h2>
+    <p class="section-sub reveal">100% cosmetic. Support the server and look great doing it — no gameplay advantage ever.</p>
+    <div class="shop-grid">
+      <div class="shop-card reveal">
+        <div class="shop-badge sb-rank">Rank</div>
+        <div class="shop-icon">⚙️</div>
+        <div class="shop-name">Iron Rank</div>
+        <div class="shop-desc">Custom prefix, 2 extra homes, coloured chat name.</div>
+        <div class="shop-price">£2.99</div>
+        <div class="shop-btn-row">
+          <button class="shop-btn-cart" onclick="addToCart('iron-rank','Iron Rank',2.99,'rank',this)">+ Cart</button>
+          <button class="shop-btn-buy" onclick="window.open('https://poclus-smp-mc.tebex.io','_blank')">Buy Now</button>
+        </div>
+      </div>
+      <div class="shop-card featured reveal">
+        <div class="shop-badge sb-hot">⭐ Popular</div>
+        <div class="shop-icon">💎</div>
+        <div class="shop-name">MVP Rank</div>
+        <div class="shop-desc">All perks, exclusive prefix, custom join message, particle trails.</div>
+        <div class="shop-price">£12.99</div>
+        <div class="shop-btn-row">
+          <button class="shop-btn-cart" onclick="addToCart('mvp-rank','MVP Rank',12.99,'rank',this)">+ Cart</button>
+          <button class="shop-btn-buy" onclick="window.open('https://poclus-smp-mc.tebex.io','_blank')">Buy Now</button>
+        </div>
+      </div>
+      <div class="shop-card reveal">
+        <div class="shop-badge sb-cos">Cosmetic</div>
+        <div class="shop-icon">🔥</div>
+        <div class="shop-name">Flame Aura</div>
+        <div class="shop-desc">Surround yourself in flickering flames as you explore.</div>
+        <div class="shop-price">£2.49</div>
+        <div class="shop-btn-row">
+          <button class="shop-btn-cart" onclick="addToCart('flame-aura','Flame Aura',2.49,'cosmetic',this)">+ Cart</button>
+          <button class="shop-btn-buy" onclick="window.open('https://poclus-smp-mc.tebex.io','_blank')">Buy Now</button>
+        </div>
+      </div>
+      <div class="shop-card reveal">
+        <div class="shop-badge sb-crate">Crate</div>
+        <div class="shop-icon">🗝️</div>
+        <div class="shop-name">Rare Crate</div>
+        <div class="shop-desc">Guaranteed rare reward including exclusive cosmetics.</div>
+        <div class="shop-price">£2.99</div>
+        <div class="shop-btn-row">
+          <button class="shop-btn-cart" onclick="addToCart('rare-crate','Rare Crate',2.99,'crate',this)">+ Cart</button>
+          <button class="shop-btn-buy" onclick="window.open('https://poclus-smp-mc.tebex.io','_blank')">Buy Now</button>
+        </div>
+      </div>
+      <div class="shop-card reveal">
+        <div class="shop-badge sb-coins">Coins</div>
+        <div class="shop-icon">💰</div>
+        <div class="shop-name">2000 Coins</div>
+        <div class="shop-desc">In-game currency bundle with 200 bonus coins free.</div>
+        <div class="shop-price">£6.99</div>
+        <div class="shop-btn-row">
+          <button class="shop-btn-cart" onclick="addToCart('2000-coins','2000 Coins',6.99,'coins',this)">+ Cart</button>
+          <button class="shop-btn-buy" onclick="window.open('https://poclus-smp-mc.tebex.io','_blank')">Buy Now</button>
+        </div>
+      </div>
+      <div class="shop-card reveal" style="display:flex;align-items:center;justify-content:center;text-align:center;border-style:dashed;">
+        <div>
+          <div style="font-size:2rem;margin-bottom:0.5rem">🛒</div>
+          <div style="font-weight:700;margin-bottom:0.4rem">View All Items</div>
+          <div style="font-size:0.83rem;color:var(--text3);margin-bottom:1rem">Ranks, cosmetics, crates & more</div>
+          <a href="https://poclus-smp-mc.tebex.io" target="_blank" class="btn btn-primary" style="font-size:0.85rem;padding:0.6rem 1.25rem;">Visit Shop →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <p class="section-label reveal">Our Story</p>
+        <h2 class="section-title reveal">About <span style="color:var(--accent)">Poclus SMP</span></h2>
+        <p style="color:var(--text2);line-height:1.8;margin-bottom:1rem;" class="reveal">Poclus SMP is a community-driven Minecraft survival server built for players who love genuine, vanilla-style gameplay. Founded with one simple mission — create a fair, friendly, and fun environment where everyone belongs.</p>
+        <p style="color:var(--text2);line-height:1.8;" class="reveal">We run 24/7 on high-performance hardware so you can always play when you want. Every purchase goes directly back into keeping the server running and improving the experience for all players.</p>
+        <div class="about-stats reveal">
+          <div class="astat"><div class="astat-num">24/7</div><div class="astat-label">Uptime</div></div>
+          <div class="astat"><div class="astat-num">1.21</div><div class="astat-label">MC Version</div></div>
+          <div class="astat"><div class="astat-num">0%</div><div class="astat-label">Pay to Win</div></div>
+          <div class="astat"><div class="astat-num">∞</div><div class="astat-label">Fun</div></div>
+        </div>
+      </div>
+      <div class="about-img reveal">
+        <div class="about-img-icon">🏔️</div>
+        <div class="about-feature"><div class="af-icon">✅</div><div class="af-text">Paper 1.21 — optimised for performance</div></div>
+        <div class="about-feature"><div class="af-icon">✅</div><div class="af-text">Geyser + Floodgate — Bedrock compatible</div></div>
+        <div class="about-feature"><div class="af-icon">✅</div><div class="af-text">Live Dynmap — explore the world online</div></div>
+        <div class="about-feature"><div class="af-icon">✅</div><div class="af-text">DiscordSRV — chat linked to Discord</div></div>
+        <div class="about-feature"><div class="af-icon">✅</div><div class="af-text">LuckPerms — fair rank management</div></div>
+        <div class="about-feature"><div class="af-icon">✅</div><div class="af-text">Regular events and community activities</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOTE -->
+<section id="vote">
+  <div class="container">
+    <p class="section-label reveal">Help us grow</p>
+    <h2 class="section-title reveal">Vote for <span style="color:var(--accent)">Poclus SMP</span></h2>
+    <p class="section-sub reveal">Voting is free and takes 30 seconds. It helps new players find us and rewards you with in-game goodies!</p>
+    <div class="vote-grid">
+      <a href="https://minecraft-server-list.com" target="_blank" class="vote-card reveal">
+        <div class="vote-icon">🗳️</div>
+        <div class="vote-site">MC Server List</div>
+        <div class="vote-desc">Vote once every 24 hours</div>
+        <div class="vote-cta">Vote Now →</div>
+      </a>
+      <a href="https://minecraftservers.org" target="_blank" class="vote-card reveal">
+        <div class="vote-icon">⭐</div>
+        <div class="vote-site">MinecraftServers.org</div>
+        <div class="vote-desc">Vote once every 24 hours</div>
+        <div class="vote-cta">Vote Now →</div>
+      </a>
+      <a href="https://topg.org" target="_blank" class="vote-card reveal">
+        <div class="vote-icon">🏆</div>
+        <div class="vote-site">TopG.org</div>
+        <div class="vote-desc">Vote once every 24 hours</div>
+        <div class="vote-cta">Vote Now →</div>
+      </a>
+      <a href="https://servers-minecraft.net" target="_blank" class="vote-card reveal">
+        <div class="vote-icon">📋</div>
+        <div class="vote-site">Servers-Minecraft</div>
+        <div class="vote-desc">Vote once every 24 hours</div>
+        <div class="vote-cta">Vote Now →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <p class="section-label reveal">FAQ</p>
+    <h2 class="section-title reveal">Common <span style="color:var(--accent)">Questions</span></h2>
+    <p class="section-sub reveal">Can't find your answer here? Ask us on Discord.</p>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What Minecraft version does Poclus SMP run? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">We currently run Paper 1.21.11. You need All versions welcome or higher to join. We also support Bedrock Edition players via Geyser on port 19132.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is the server free to play? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Completely free! You can join and play without spending a single penny. Our shop only sells cosmetic items that don't affect gameplay — so your progress is entirely down to your skill and dedication.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How do I apply for staff? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">You need to have been an active player for at least 2 weeks with a clean record. Head to our Discord server and open a staff application ticket. We review applications every week and reply within 7 days.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">I was banned. How do I appeal? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Join our Discord server and open a ban appeal ticket. Include your Minecraft username, the reason you were given, and why you think the ban should be lifted. We review all appeals fairly and respond within 48 hours.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Does my rank carry over if the server resets? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Yes! Purchased ranks are permanent and will carry over through any world resets. They are linked to your Minecraft account, not the world. Cosmetics and coins also persist through resets.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I get a refund on a purchase? <span class="faq-arrow">▼</span></button>
+        <div class="faq-a">Refunds are handled through Tebex in accordance with their refund policy. Note that players who are banned for breaking rules are not eligible for refunds. Contact us via Discord for any payment issues.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label reveal">Get in Touch</p>
+    <h2 class="section-title reveal">Contact <span style="color:var(--accent)">Us</span></h2>
+    <div class="contact-grid">
+      <div class="reveal">
+        <p style="color:var(--text2);line-height:1.7;margin-bottom:1.5rem;">Have a question, suggestion, or issue? We're always happy to hear from the community. The fastest way to reach us is Discord.</p>
+        <div class="contact-links">
+          <a href="https://discord.gg/c2FQM6bNcN" target="_blank" class="contact-link-card">
+            <div class="clc-icon">💬</div>
+            <div><div class="clc-title">Discord Server</div><div class="clc-sub">Fastest response — usually within an hour</div></div>
+            <div class="clc-arrow">→</div>
+          </a>
+          <a href="https://poclus-smp-mc.tebex.io" target="_blank" class="contact-link-card">
+            <div class="clc-icon">🛒</div>
+            <div><div class="clc-title">Shop Support</div><div class="clc-sub">Payment issues and purchase questions</div></div>
+            <div class="clc-arrow">→</div>
+          </a>
+          <a href="http://66.59.208.45:8123/" target="_blank" class="contact-link-card">
+            <div class="clc-icon">🗺️</div>
+            <div><div class="clc-title">Live World Map</div><div class="clc-sub">Explore the server world in real time</div></div>
+            <div class="clc-arrow">→</div>
+          </a>
+        </div>
+      </div>
+      <div class="contact-form reveal">
+        <div class="form-success-msg" id="contact-ok">✅ Message sent! We'll get back to you soon.</div>
+        <div class="cfield"><label>Your Name</label><input type="text" id="c-name" placeholder="Steve Notch"></div>
+        <div class="cfield"><label>Email</label><input type="email" id="c-email" placeholder="you@email.com"></div>
+        <div class="cfield"><label>Subject</label>
+          <select id="c-subject">
+            <option>General Question</option>
+            <option>Ban Appeal</option>
+            <option>Staff Application</option>
+            <option>Bug Report</option>
+            <option>Partnership</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="cfield"><label>Message</label><textarea id="c-msg" rows="4" placeholder="Your message…"></textarea></div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="submitContact()">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISCORD BANNER -->
+<section id="discord-banner">
+  <div class="db-inner">
+    <div class="db-icon">💬</div>
+    <h2 class="db-title">Join our Community</h2>
+    <p class="db-sub">Chat with staff and players, get updates, report issues, apply for staff, and stay up to date with everything happening on Poclus SMP.</p>
+    <a href="https://discord.gg/c2FQM6bNcN" target="_blank" class="btn" style="background:#fff;color:#5865f2;font-size:1rem;font-weight:800;padding:1rem 2.5rem;box-shadow:0 8px 24px rgba(0,0,0,0.2);">Join Discord — It's Free</a>
+  </div>
+</section>
+
+<!-- PRIVACY POLICY -->
+<section id="privacy-page" style="background:var(--bg2);">
+  <div class="container">
+    <p class="section-label">Legal</p>
+    <h2 class="section-title">Privacy <span style="color:var(--accent)">Policy</span></h2>
+    <div class="legal-content">
+      <p class="legal-date">Last updated: March 2026</p>
+      <h3>1. Information We Collect</h3><p>When you visit our website we may collect your IP address and browser information for security and analytics purposes. If you create an account we collect your email address, username, and Minecraft IGN. Google AdSense may also collect data to serve personalised advertisements.</p>
+      <h3>2. How We Use Your Information</h3><p>We use your information to manage your account, process purchases through Tebex, respond to support requests, and improve the website experience. We do not sell your personal information to any third parties.</p>
+      <h3>3. Cookies and Advertising</h3><p>This website uses Google AdSense which may use cookies to serve ads based on your prior visits. You can opt out of personalised advertising at <a href="https://www.google.com/settings/ads" target="_blank" style="color:var(--accent)">Google Ads Settings</a>.</p>
+      <h3>4. Third Party Services</h3><p>We use Firebase for authentication, Tebex for payments, EmailJS for emails, and Google AdSense for advertising. Each has their own privacy policy.</p>
+      <h3>5. Contact</h3><p>Questions about this policy? Contact us via Discord or the contact form above.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TERMS -->
+<section id="terms-page" style="background:var(--bg);">
+  <div class="container">
+    <p class="section-label">Legal</p>
+    <h2 class="section-title">Terms of <span style="color:var(--accent)">Service</span></h2>
+    <div class="legal-content">
+      <p class="legal-date">Last updated: March 2026</p>
+      <h3>1. Acceptance</h3><p>By using Poclus SMP you agree to these terms. If you do not agree, please do not use our services.</p>
+      <h3>2. Rules</h3><p>All players must follow the server rules. Violations may result in bans. Refunds are not issued to banned players.</p>
+      <h3>3. Purchases</h3><p>All purchases are for cosmetic virtual items only. They provide no gameplay advantage. Handled by Tebex.</p>
+      <h3>4. Disclaimer</h3><p>Poclus SMP is not affiliated with Mojang AB or Microsoft. Minecraft is a trademark of Mojang AB.</p>
+      <h3>5. Changes</h3><p>We reserve the right to update these terms at any time. Continued use constitutes acceptance.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#hero" class="footer-logo">
+          <div class="footer-logo-icon">⛏</div>
+          <span class="footer-logo-text">PoclusSMP</span>
+        </a>
+        <p>A community-driven Minecraft survival server. No pay-to-win. Just great gameplay and good people.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Server</h4>
+        <a href="#status">Server Status</a>
+        <a href="#features">Features</a>
+        <a href="#rules">Rules</a>
+        <a href="#staff">Staff</a>
+        <a href="#vote">Vote</a>
+      </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <a href="https://discord.gg/c2FQM6bNcN" target="_blank">Discord</a>
+        <a href="https://poclus-smp-mc.tebex.io" target="_blank">Shop</a>
+        <a href="http://66.59.208.45:8123/" target="_blank">World Map</a>
+        <a href="#contact">Contact</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#privacy-page">Privacy Policy</a>
+        <a href="#terms-page">Terms of Service</a>
+        <a href="#contact">Cookie Settings</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Poclus SMP. All rights reserved. Not affiliated with Mojang AB or Microsoft.</p>
+      <div style="display:flex;gap:1.25rem;">
+        <a href="#privacy-page">Privacy</a>
+        <a href="#terms-page">Terms</a>
+        <a href="https://discord.gg/c2FQM6bNcN" target="_blank">Discord</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ACCOUNT MODAL -->
+<div id="account-modal-overlay" onclick="closeAccountModal(event)">
+  <div id="account-modal">
+    <button class="am-close" onclick="closeAccountModal()">✕</button>
+
+    <!-- SIDEBAR -->
+    <div class="am-sidebar">
+      <div class="am-profile-header">
+        <div class="am-profile-avatar" id="am-avatar">?</div>
+        <div class="am-profile-name" id="am-name">—</div>
+        <div class="am-profile-email" id="am-email">—</div>
+      </div>
+      <div class="am-nav">
+        <div class="am-nav-group">Account</div>
+        <button class="am-nav-item active" onclick="switchAmPanel('profile')" id="am-tab-profile"><span class="am-nav-item-icon">👤</span>My Profile</button>
+        <button class="am-nav-item" onclick="switchAmPanel('settings')" id="am-tab-settings"><span class="am-nav-item-icon">⚙️</span>Settings</button>
+        <button class="am-nav-item" onclick="switchAmPanel('security')" id="am-tab-security"><span class="am-nav-item-icon">🔒</span>Security</button>
+        <div class="am-nav-group">Activity</div>
+        <button class="am-nav-item" onclick="switchAmPanel('purchases')" id="am-tab-purchases"><span class="am-nav-item-icon">🧾</span>My Purchases</button>
+        <button class="am-nav-item" onclick="switchAmPanel('connections')" id="am-tab-connections"><span class="am-nav-item-icon">🔗</span>Connected Apps</button>
+        <div class="am-nav-group">Preferences</div>
+        <button class="am-nav-item" onclick="switchAmPanel('notifications')" id="am-tab-notifications"><span class="am-nav-item-icon">🔔</span>Notifications</button>
+        <button class="am-nav-item" onclick="switchAmPanel('privacy')" id="am-tab-privacy"><span class="am-nav-item-icon">👁️</span>Privacy</button>
+        <div style="height:1px;background:var(--border);margin:0.5rem 0.75rem;"></div>
+        <button class="am-nav-item am-nav-item-danger" onclick="authLogout()"><span class="am-nav-item-icon">🚪</span>Sign Out</button>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="am-content">
+
+      <!-- PROFILE -->
+      <div class="am-panel active" id="am-panel-profile">
+        <div class="am-panel-title">My Profile</div>
+        <div class="am-panel-sub">This is how other players see you on Poclus SMP.</div>
+        <div style="display:flex;align-items:center;gap:1.25rem;padding:1.25rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:1.5rem;">
+          <div id="am-profile-pic" style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--blue));display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:800;color:#000;flex-shrink:0;border:3px solid rgba(0,212,255,0.3);"></div>
+          <div>
+            <div id="am-profile-name-big" style="font-size:1.1rem;font-weight:800;"></div>
+            <div id="am-profile-email-small" style="font-size:0.8rem;color:var(--text3);margin-top:0.2rem;"></div>
+            <div style="display:flex;gap:0.5rem;margin-top:0.5rem;flex-wrap:wrap;" id="am-badges"></div>
+          </div>
+        </div>
+        <div class="am-info-card"><div class="am-info-icon">📧</div><div><div class="am-info-label">Email</div><div class="am-info-val" id="am-info-email">—</div></div></div>
+        <div class="am-info-card"><div class="am-info-icon">🪪</div><div><div class="am-info-label">Auth0 User ID</div><div class="am-info-val" id="am-info-sub" style="font-size:0.78rem;font-family:'JetBrains Mono',monospace;color:var(--text3);">—</div></div></div>
+        <div class="am-info-card"><div class="am-info-icon">✅</div><div><div class="am-info-label">Email Verified</div><div class="am-info-val" id="am-info-verified">—</div></div></div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="am-panel" id="am-panel-settings">
+        <div class="am-panel-title">Account Settings</div>
+        <div class="am-panel-sub">Update your display name and personal information.</div>
+        <div class="am-success" id="settings-ok">✅ Settings saved!</div>
+        <div class="am-field-row">
+          <div class="am-field"><label>First Name</label><input type="text" id="s-firstname" placeholder="Steve"></div>
+          <div class="am-field"><label>Last Name</label><input type="text" id="s-lastname" placeholder="Notch"></div>
+        </div>
+        <div class="am-field"><label>Minecraft IGN</label><input type="text" id="s-mc-ign" placeholder="Your in-game username"></div>
+        <div class="am-field"><label>Date of Birth</label><input type="date" id="s-dob" style="color-scheme:dark"></div>
+        <div class="am-field"><label>Country</label>
+          <select id="s-country">
+            <option value="">Select country…</option>
+            <option>United Kingdom</option><option>United States</option><option>Canada</option><option>Australia</option><option>Germany</option><option>France</option><option>Netherlands</option><option>Other</option>
+          </select>
+        </div>
+        <button class="am-btn" onclick="saveSettings()">✦ Save Settings</button>
+      </div>
+
+      <!-- SECURITY -->
+      <div class="am-panel" id="am-panel-security">
+        <div class="am-panel-title">Security</div>
+        <div class="am-panel-sub">Manage how you sign in and keep your account safe.</div>
+        <div class="am-info-card"><div class="am-info-icon">🔐</div><div><div class="am-info-label">Sign-in Method</div><div class="am-info-val" id="am-auth-method">—</div></div></div>
+        <div class="am-divider"></div>
+        <div style="font-size:0.9rem;font-weight:700;margin-bottom:1rem;">Two-Factor Authentication</div>
+        <div class="am-toggle-row">
+          <div><div class="am-toggle-title">Authenticator App</div><div class="am-toggle-desc">Use Google Authenticator or Authy for extra security.</div></div>
+          <label class="am-toggle"><input type="checkbox"><span class="am-toggle-slider"></span></label>
+        </div>
+        <div class="am-toggle-row">
+          <div><div class="am-toggle-title">SMS Code</div><div class="am-toggle-desc">Get a one-time code by text message.</div></div>
+          <label class="am-toggle"><input type="checkbox"><span class="am-toggle-slider"></span></label>
+        </div>
+        <div class="am-divider"></div>
+        <div style="font-size:0.9rem;font-weight:700;margin-bottom:0.5rem;">Active Sessions</div>
+        <div class="am-info-card"><div class="am-info-icon">🖥️</div><div><div class="am-info-label">Current Session</div><div class="am-info-val">This device — Active now</div></div></div>
+      </div>
+
+      <!-- PURCHASES -->
+      <div class="am-panel" id="am-panel-purchases">
+        <div class="am-panel-title">My Purchases</div>
+        <div class="am-panel-sub">A history of everything you've bought on Poclus SMP.</div>
+        <div class="am-empty">
+          <div class="am-empty-icon">🧾</div>
+          <div class="am-empty-text">No purchases yet.<br>Head to the shop to support the server!</div>
+          <a href="#shop" onclick="closeAccountModal()" style="display:inline-block;margin-top:1rem;color:var(--accent);font-size:0.875rem;text-decoration:underline;">Browse Shop →</a>
+        </div>
+      </div>
+
+      <!-- CONNECTED APPS -->
+      <div class="am-panel" id="am-panel-connections">
+        <div class="am-panel-title">Connected Apps</div>
+        <div class="am-panel-sub">Apps and services that have access to your account.</div>
+        <div class="am-info-card"><div class="am-info-icon">🔐</div><div><div class="am-info-label">Auth0</div><div class="am-info-val">Identity & Authentication Provider</div></div></div>
+        <div class="am-info-card"><div class="am-info-icon">🛒</div><div><div class="am-info-label">Tebex</div><div class="am-info-val">Shop & Payment Processor</div></div></div>
+        <p style="font-size:0.8rem;color:var(--text3);margin-top:1rem;">To revoke access to any app, visit your <a href="https://manage.auth0.com" target="_blank" style="color:var(--accent)">Auth0 dashboard</a>.</p>
+      </div>
+
+      <!-- NOTIFICATIONS -->
+      <div class="am-panel" id="am-panel-notifications">
+        <div class="am-panel-title">Notifications</div>
+        <div class="am-panel-sub">Choose what you want to be notified about.</div>
+        <div class="am-success" id="notif-ok">✅ Notification preferences saved!</div>
+        <div class="am-toggle-row"><div><div class="am-toggle-title">Server Updates</div><div class="am-toggle-desc">Get notified about new features and server news.</div></div><label class="am-toggle"><input type="checkbox" checked><span class="am-toggle-slider"></span></label></div>
+        <div class="am-toggle-row"><div><div class="am-toggle-title">Events & Competitions</div><div class="am-toggle-desc">Be the first to know about in-game events.</div></div><label class="am-toggle"><input type="checkbox" checked><span class="am-toggle-slider"></span></label></div>
+        <div class="am-toggle-row"><div><div class="am-toggle-title">Shop Sales</div><div class="am-toggle-desc">Alerts when items go on sale in the shop.</div></div><label class="am-toggle"><input type="checkbox"><span class="am-toggle-slider"></span></label></div>
+        <div class="am-toggle-row"><div><div class="am-toggle-title">Staff Replies</div><div class="am-toggle-desc">When a staff member responds to your ticket.</div></div><label class="am-toggle"><input type="checkbox" checked><span class="am-toggle-slider"></span></label></div>
+        <button class="am-btn" style="margin-top:1.25rem" onclick="document.getElementById('notif-ok').style.display='block'">Save Preferences</button>
+      </div>
+
+      <!-- PRIVACY -->
+      <div class="am-panel" id="am-panel-privacy">
+        <div class="am-panel-title">Privacy</div>
+        <div class="am-panel-sub">Control how your data is used on Poclus SMP.</div>
+        <div class="am-success" id="privacy-ok">✅ Privacy settings saved!</div>
+        <div class="am-toggle-row"><div><div class="am-toggle-title">Public Profile</div><div class="am-toggle-desc">Allow other players to see your username on the leaderboard.</div></div><label class="am-toggle"><input type="checkbox" checked><span class="am-toggle-slider"></span></label></div>
+        <div class="am-toggle-row"><div><div class="am-toggle-title">Personalised Ads</div><div class="am-toggle-desc">Allow Google AdSense to serve ads based on your interests.</div></div><label class="am-toggle"><input type="checkbox" checked><span class="am-toggle-slider"></span></label></div>
+        <div class="am-toggle-row"><div><div class="am-toggle-title">Activity Tracking</div><div class="am-toggle-desc">Help us improve the site by sharing anonymous usage data.</div></div><label class="am-toggle"><input type="checkbox"><span class="am-toggle-slider"></span></label></div>
+        <button class="am-btn" style="margin-top:1.25rem" onclick="document.getElementById('privacy-ok').style.display='block'">Save Privacy Settings</button>
+        <div class="am-divider"></div>
+        <div style="font-size:0.9rem;font-weight:700;color:#f87171;margin-bottom:0.5rem;">Danger Zone</div>
+        <p style="font-size:0.82rem;color:var(--text3);margin-bottom:1rem;">Permanently delete your account and all associated data. This cannot be undone.</p>
+        <button class="am-btn am-btn-danger" onclick="if(confirm('Are you sure? This cannot be undone.')) authLogout()">🗑️ Delete My Account</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- APPLY FOR STAFF -->
+<section id="apply" style="background:var(--bg2);">
+  <div class="container">
+    <p class="section-label reveal">Join the Team</p>
+    <h2 class="section-title reveal">Apply for <span style="color:var(--accent)">Staff</span></h2>
+    <p class="section-sub reveal">Think you have what it takes? We're always looking for dedicated, fair-minded players to help moderate Poclus SMP.</p>
+    <div style="display:grid;grid-template-columns:1fr 1.6fr;gap:3rem;align-items:start;" class="reveal">
+      <!-- Requirements -->
+      <div>
+        <div style="font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);margin-bottom:1rem;">Requirements</div>
+        <div style="display:flex;flex-direction:column;gap:0.75rem;">
+          <div style="display:flex;gap:0.75rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;margin-top:0.1rem;">✓</span><span style="font-size:0.9rem;color:var(--text2);">Active player for at least 2 weeks</span></div>
+          <div style="display:flex;gap:0.75rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;margin-top:0.1rem;">✓</span><span style="font-size:0.9rem;color:var(--text2);">Clean record — no active bans or warnings</span></div>
+          <div style="display:flex;gap:0.75rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;margin-top:0.1rem;">✓</span><span style="font-size:0.9rem;color:var(--text2);">Minimum age of 14</span></div>
+          <div style="display:flex;gap:0.75rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;margin-top:0.1rem;">✓</span><span style="font-size:0.9rem;color:var(--text2);">Active on Discord</span></div>
+          <div style="display:flex;gap:0.75rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;margin-top:0.1rem;">✓</span><span style="font-size:0.9rem;color:var(--text2);">Able to commit at least 5 hours per week</span></div>
+          <div style="display:flex;gap:0.75rem;align-items:flex-start;"><span style="color:var(--green);flex-shrink:0;margin-top:0.1rem;">✓</span><span style="font-size:0.9rem;color:var(--text2);">Good communication and conflict resolution skills</span></div>
+        </div>
+        <div style="margin-top:1.5rem;background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);border-radius:10px;padding:1rem;">
+          <div style="font-size:0.82rem;font-weight:700;color:var(--accent);margin-bottom:0.4rem;">⏱ Review Time</div>
+          <div style="font-size:0.82rem;color:var(--text3);line-height:1.6;">We review all applications within 7 days and reply via Discord. You must be logged in to submit and track your application.</div>
+        </div>
+      </div>
+      <!-- Form -->
+      <div id="apply-form-wrap">
+        <div id="apply-login-prompt" style="display:none;text-align:center;padding:2rem;background:var(--surface);border:1px solid var(--border2);border-radius:14px;">
+          <div style="font-size:2rem;margin-bottom:0.75rem;">🔒</div>
+          <div style="font-weight:700;margin-bottom:0.5rem;">Login Required</div>
+          <div style="font-size:0.875rem;color:var(--text2);margin-bottom:1.25rem;">You need to be logged in to submit a staff application.</div>
+          <button class="btn btn-primary" onclick="authLogin()">Login to Apply</button>
+        </div>
+        <div id="apply-form" style="background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:2rem;">
+          <div id="apply-success" style="display:none;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:var(--green);border-radius:8px;padding:1rem;margin-bottom:1rem;font-size:0.875rem;"></div>
+          <div id="apply-error" style="display:none;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;border-radius:8px;padding:1rem;margin-bottom:1rem;font-size:0.875rem;"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+            <div class="cfield"><label>Minecraft IGN</label><input type="text" id="app-mc" placeholder="YourUsername"></div>
+            <div class="cfield"><label>Discord Tag</label><input type="text" id="app-discord" placeholder="user#0000"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+            <div class="cfield"><label>Age</label><input type="number" id="app-age" placeholder="16" min="1" max="99"></div>
+            <div class="cfield"><label>Role Applying For</label>
+              <select id="app-role">
+                <option value="">Select role…</option>
+                <option>Helper</option>
+                <option>Moderator</option>
+                <option>Builder</option>
+                <option>Event Organiser</option>
+              </select>
+            </div>
+          </div>
+          <div class="cfield"><label>Hours available per week</label><input type="text" id="app-hours" placeholder="e.g. 10 hours"></div>
+          <div class="cfield"><label>Why do you want to be staff?</label><textarea id="app-why" rows="3" placeholder="Tell us why you'd make a great addition to the team…"></textarea></div>
+          <div class="cfield"><label>Previous moderation experience</label><textarea id="app-exp" rows="3" placeholder="Any previous experience moderating servers or communities…"></textarea></div>
+          <div class="cfield"><label>What would you do if a player is being toxic in chat?</label><textarea id="app-scenario" rows="3" placeholder="Walk us through how you'd handle this situation…"></textarea></div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="submitApplication()">Submit Application →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Application Tracker -->
+    <div id="app-tracker" style="display:none;margin-top:3rem;">
+      <div style="font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text3);margin-bottom:1rem;">Your Application</div>
+      <div id="app-tracker-card" style="background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:1.5rem;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STAFF PORTAL OVERLAY -->
+<div id="staff-portal-overlay" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:900;overflow-y:auto;">
+  <div style="max-width:1100px;margin:0 auto;padding:2rem;">
+    <!-- Header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);">
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div style="width:40px;height:40px;background:linear-gradient(135deg,var(--gold),#f97316);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">🛡️</div>
+        <div>
+          <div style="font-size:1.2rem;font-weight:800;color:var(--gold);">Staff Portal</div>
+          <div style="font-size:0.78rem;color:var(--text3);">Poclus SMP — Staff Only</div>
+        </div>
+      </div>
+      <button onclick="closeStaffPortal()" style="background:var(--surface);border:1px solid var(--border);color:var(--text2);padding:0.5rem 1rem;border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.875rem;cursor:pointer;">← Back to Site</button>
+    </div>
+
+    <!-- Stats row -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:2rem;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;">
+        <div style="font-size:1.8rem;font-weight:900;color:var(--accent);" id="sp-stat-apps">—</div>
+        <div style="font-size:0.75rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.2rem;">Pending Apps</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;">
+        <div style="font-size:1.8rem;font-weight:900;color:var(--green);" id="sp-stat-online">—</div>
+        <div style="font-size:0.75rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.2rem;">Players Online</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;">
+        <div style="font-size:1.8rem;font-weight:900;color:var(--gold);">24/7</div>
+        <div style="font-size:0.75rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.2rem;">Server Uptime</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;">
+        <div style="font-size:1.8rem;font-weight:900;color:var(--blue);" id="sp-staff-name">—</div>
+        <div style="font-size:0.75rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.2rem;">Logged in as</div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div style="display:flex;gap:0.5rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+      <button class="sp-tab active" onclick="switchSpTab('applications')" id="sptab-applications">📋 Applications</button>
+      <button class="sp-tab" onclick="switchSpTab('players')" id="sptab-players">👥 Players</button>
+      <button class="sp-tab" onclick="switchSpTab('rules')" id="sptab-rules">📜 Rules Manager</button>
+      <button class="sp-tab" onclick="switchSpTab('announcements')" id="sptab-announcements">📢 Announcements</button>
+      <button class="sp-tab" onclick="switchSpTab('notes')" id="sptab-notes">📝 Staff Notes</button>
+    </div>
+
+    <!-- Applications Panel -->
+    <div class="sp-panel active" id="sppanel-applications">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+        <div style="font-size:1rem;font-weight:800;">Staff Applications</div>
+        <select id="sp-filter" onchange="renderApplications()" style="background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:0.4rem 0.75rem;border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.82rem;outline:none;">
+          <option value="all">All Applications</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
+        </select>
+      </div>
+      <div id="sp-applications-list"></div>
+    </div>
+
+    <!-- Players Panel -->
+    <div class="sp-panel" id="sppanel-players">
+      <div style="font-size:1rem;font-weight:800;margin-bottom:1rem;">Player Management</div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem;text-align:center;color:var(--text3);">
+        <div style="font-size:2rem;margin-bottom:0.5rem;">👥</div>
+        <div>Connect your Minecraft server API to manage players here.</div>
+        <div style="font-size:0.82rem;margin-top:0.5rem;">Server IP: <code style="color:var(--accent);">poclussmp.minecraft.best:25565</code></div>
+      </div>
+    </div>
+
+    <!-- Rules Manager Panel -->
+    <div class="sp-panel" id="sppanel-rules">
+      <div style="font-size:1rem;font-weight:800;margin-bottom:1rem;">Rules Manager</div>
+      <div id="sp-rules-list" style="display:flex;flex-direction:column;gap:0.75rem;"></div>
+      <button onclick="addStaffRule()" style="margin-top:1rem;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.2);color:var(--accent);padding:0.6rem 1.25rem;border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.875rem;font-weight:600;cursor:pointer;">+ Add Rule</button>
+    </div>
+
+    <!-- Announcements Panel -->
+    <div class="sp-panel" id="sppanel-announcements">
+      <div style="font-size:1rem;font-weight:800;margin-bottom:1rem;">Post Announcement</div>
+      <div style="background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:1.5rem;">
+        <div class="cfield"><label>Title</label><input type="text" id="sp-ann-title" placeholder="Server maintenance tonight…"></div>
+        <div class="cfield"><label>Message</label><textarea id="sp-ann-msg" rows="4" placeholder="Write your announcement here…"></textarea></div>
+        <div style="display:flex;gap:0.75rem;">
+          <select id="sp-ann-type" style="background:var(--bg);border:1px solid var(--border2);color:var(--text);padding:0.65rem 0.9rem;border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.875rem;outline:none;">
+            <option>Info</option><option>Warning</option><option>Event</option><option>Urgent</option>
+          </select>
+          <button onclick="postAnnouncement()" class="btn btn-primary">Post Announcement</button>
+        </div>
+        <div id="sp-ann-ok" style="display:none;margin-top:1rem;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:var(--green);border-radius:8px;padding:0.75rem;font-size:0.875rem;">✅ Announcement posted!</div>
+      </div>
+    </div>
+
+    <!-- Staff Notes Panel -->
+    <div class="sp-panel" id="sppanel-notes">
+      <div style="font-size:1rem;font-weight:800;margin-bottom:1rem;">Staff Notes</div>
+      <div style="background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:1.5rem;">
+        <textarea id="sp-notes-text" rows="12" placeholder="Private staff notes — player incidents, reminders, warnings given…" style="width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:'Outfit',sans-serif;font-size:0.9rem;padding:1rem;border-radius:8px;outline:none;resize:vertical;line-height:1.6;"></textarea>
+        <button onclick="saveStaffNotes()" style="margin-top:0.75rem;background:var(--accent);color:#000;border:none;padding:0.65rem 1.5rem;border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.875rem;font-weight:700;cursor:pointer;">Save Notes</button>
+        <div id="sp-notes-ok" style="display:none;margin-top:0.75rem;font-size:0.82rem;color:var(--green);">✅ Notes saved locally.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACCESS DENIED -->
+<div id="access-denied" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:950;display:none;align-items:center;justify-content:center;text-align:center;padding:2rem;">
+  <div>
+    <div style="font-size:4rem;margin-bottom:1rem;">🚫</div>
+    <div style="font-size:1.5rem;font-weight:800;color:#f87171;margin-bottom:0.5rem;">Access Denied</div>
+    <div style="color:var(--text2);margin-bottom:1.5rem;">This page is for Poclus SMP staff only.</div>
+    <button onclick="document.getElementById('access-denied').style.display='none'" class="btn btn-secondary">Go Back</button>
+  </div>
+</div>
+
+<!-- COOKIE BANNER -->
+<div id="cookie-banner">
+  <div class="cookie-text">🍪 We use cookies and Google AdSense to serve ads. By clicking <strong>Accept</strong> you agree to our <a href="#privacy-page">Privacy Policy</a>.</div>
+  <div class="cookie-btns">
+    <button class="c-decline" onclick="dismissCookie('declined')">Decline</button>
+    <button class="c-accept" onclick="dismissCookie('accepted')">Accept All</button>
+  </div>
+</div>
+
+<script>
+// ── ACCOUNT MODAL ──
+function openAccountModal(tab) {
+  document.getElementById('account-modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  switchAmPanel(tab || 'profile');
+  // Fill in user data
+  auth0Client && auth0Client.getUser().then(user => {
+    if (!user) return;
+    const initials = (user.name||user.email||'?').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    ['am-avatar','am-profile-pic'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent=initials; });
+    const nm = document.getElementById('am-name'); if(nm) nm.textContent = user.name||user.email;
+    const em = document.getElementById('am-email'); if(em) em.textContent = user.email;
+    const pmn = document.getElementById('am-profile-name-big'); if(pmn) pmn.textContent = user.name||user.email;
+    const pme = document.getElementById('am-profile-email-small'); if(pme) pme.textContent = user.email;
+    const ie = document.getElementById('am-info-email'); if(ie) ie.textContent = user.email;
+    const isub = document.getElementById('am-info-sub'); if(isub) isub.textContent = user.sub;
+    const iv = document.getElementById('am-info-verified'); if(iv) iv.textContent = user.email_verified ? '✅ Verified' : '❌ Not verified';
+    const am = document.getElementById('am-auth-method');
+    if(am) am.textContent = user.sub.startsWith('google') ? 'Google Sign-In' : user.sub.startsWith('github') ? 'GitHub' : 'Email & Password';
+    const badges = document.getElementById('am-badges');
+    if(badges) badges.innerHTML = user.email_verified ? '<span style="background:rgba(34,197,94,0.12);color:var(--green);border:1px solid rgba(34,197,94,0.3);border-radius:4px;padding:0.15rem 0.5rem;font-size:0.72rem;font-weight:700;">✓ Verified</span>' : '';
+  });
+}
+
+function closeAccountModal(e) {
+  if (e && e.target !== document.getElementById('account-modal-overlay')) return;
+  document.getElementById('account-modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function switchAmPanel(tab) {
+  document.querySelectorAll('.am-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.am-nav-item').forEach(t => t.classList.remove('active'));
+  const panel = document.getElementById('am-panel-'+tab);
+  const navItem = document.getElementById('am-tab-'+tab);
+  if (panel) panel.classList.add('active');
+  if (navItem) navItem.classList.add('active');
+}
+
+function saveSettings() {
+  const ok = document.getElementById('settings-ok');
+  if (ok) { ok.style.display = 'block'; setTimeout(() => ok.style.display='none', 3000); }
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeAccountModal(); closeCart(); } });
+
+// ── AUTH0 ──
+const AUTH0_DOMAIN   = 'dev-os444ml4cjthzbp2.eu.auth0.com';
+const AUTH0_CLIENT   = '8qVlcsKjKvHClIB0D56rxK6CsAwwNLqQ';
+const AUTH0_REDIRECT = window.location.origin + window.location.pathname;
+
+let auth0Client = null;
+
+async function initAuth0() {
+  try {
+    auth0Client = await auth0.createAuth0Client({
+      domain: AUTH0_DOMAIN,
+      clientId: AUTH0_CLIENT,
+      authorizationParams: { redirect_uri: AUTH0_REDIRECT }
+    });
+
+    // Handle redirect callback after login
+    if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
+      await auth0Client.handleRedirectCallback();
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    await updateAuthUI();
+  } catch(e) {
+    console.error('Auth0 init error:', e);
+  }
+}
+
+async function updateAuthUI() {
+  const isAuthed = await auth0Client.isAuthenticated();
+  const loginBtn  = document.getElementById('nav-login-btn');
+  const userBtn   = document.getElementById('nav-user-btn');
+
+  if (isAuthed) {
+    const user = await auth0Client.getUser();
+    loginBtn.style.display = 'none';
+    userBtn.style.display  = 'block';
+
+    const initials = (user.name || user.email || '?').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    document.getElementById('nav-avatar').textContent   = initials;
+    document.getElementById('nav-username').textContent = user.nickname || user.name || 'Player';
+    document.getElementById('dd-name').textContent      = user.name || user.email;
+    document.getElementById('dd-email').textContent     = user.email || '';
+    document.getElementById('dd-avatar-big').textContent = initials;
+
+    // Check staff role and apply page
+    checkStaffNav();
+    checkApplyPage();
+  } else {
+    loginBtn.style.display = 'block';
+    userBtn.style.display  = 'none';
+    checkApplyPage();
+  }
+}
+
+function toggleUserMenu() {
+  const dd = document.getElementById('user-dropdown');
+  dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', e => {
+  const btn = document.getElementById('nav-user-btn');
+  if (btn && !btn.contains(e.target)) {
+    const dd = document.getElementById('user-dropdown');
+    if (dd) dd.style.display = 'none';
+  }
+});
+
+async function authLogin() {
+  try {
+    await auth0Client.loginWithRedirect({
+      authorizationParams: { redirect_uri: AUTH0_REDIRECT }
+    });
+  } catch(e) { console.error('Login error:', e); }
+}
+
+async function authLogout() {
+  try {
+    await auth0Client.logout({
+      logoutParams: { returnTo: AUTH0_REDIRECT }
+    });
+  } catch(e) { console.error('Logout error:', e); }
+}
+
+// Init on load
+initAuth0();
+async function fetchStatus() {
+  try {
+    const res  = await fetch('https://api.mcsrvstat.us/3/poclussmp.minecraft.best', {cache:'no-store'});
+    const data = await res.json();
+    const online  = data.online;
+    const players = data.players ? data.players.online : 0;
+    const max     = data.players ? data.players.max : 20;
+    const version = data.version || '1.21';
+
+    // Nav pill
+    const navDot  = document.getElementById('nav-dot');
+    const navTxt  = document.getElementById('nav-status-text');
+    navDot.className  = 'status-dot' + (online ? '' : ' offline');
+    navTxt.textContent = online ? players+' online' : 'Offline';
+
+    // Hero card
+    document.getElementById('hero-online').textContent  = online ? players : '0';
+    document.getElementById('hero-max').textContent     = max;
+    document.getElementById('hero-version').textContent = version;
+
+    // Status section
+    const bigDot = document.getElementById('status-dot-big');
+    const bigLbl = document.getElementById('status-label-big');
+    bigDot.className  = 'status-dot-big' + (online ? '' : ' offline');
+    bigLbl.textContent = online ? 'Server is Online ✓' : 'Server is Offline';
+    bigLbl.style.color = online ? 'var(--green)' : 'var(--red)';
+
+    document.getElementById('stat-online').textContent  = online ? players : '0';
+    document.getElementById('stat-max').textContent     = max;
+    document.getElementById('stat-version').textContent = version;
+    document.getElementById('stat-ping').textContent    = online ? '🟢 Online' : '🔴 Offline';
+  } catch(e) {
+    document.getElementById('nav-status-text').textContent = 'Unknown';
+    document.getElementById('status-label-big').textContent = 'Could not reach server';
+  }
+}
+fetchStatus();
+setInterval(fetchStatus, 60000);
+
+// ── COPY IP ──
+function copyIP() {
+  navigator.clipboard.writeText('poclussmp.minecraft.best').then(() => {
+    const btns = document.querySelectorAll('[onclick="copyIP()"]');
+    btns.forEach(b => { const orig = b.textContent||b.innerHTML; b.textContent='✓ Copied!'; setTimeout(()=>{ b.textContent=orig.includes('📋')?'📋 Copy IP':'📋  Copy Server IP'; },2000); });
+  });
+}
+
+// ── FAQ ──
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ── CONTACT FORM ──
+function submitContact() {
+  const name = document.getElementById('c-name').value.trim();
+  const email = document.getElementById('c-email').value.trim();
+  const msg = document.getElementById('c-msg').value.trim();
+  if (!name||!email||!msg) { alert('Please fill in all fields.'); return; }
+  const ok = document.getElementById('contact-ok');
+  ok.style.display = 'block';
+  document.getElementById('c-name').value='';
+  document.getElementById('c-email').value='';
+  document.getElementById('c-msg').value='';
+}
+
+// ── COOKIE ──
+function dismissCookie(choice) {
+  localStorage.setItem('cookies', choice);
+  document.getElementById('cookie-banner').classList.remove('show');
+}
+window.addEventListener('DOMContentLoaded', () => {
+  if (!localStorage.getItem('cookies')) {
+    setTimeout(() => document.getElementById('cookie-banner').classList.add('show'), 1500);
+  }
+});
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 60);
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+<!-- CART FAB -->
+<button id="cart-fab" onclick="openCart()">
+  🛒 Cart <span id="cart-fab-count">0</span>
+</button>
+
+<!-- CART OVERLAY -->
+<div id="cart-overlay" onclick="closeCart()"></div>
+
+<!-- CART DRAWER -->
+<div id="cart-drawer">
+  <div class="cart-head">
+    <div class="cart-head-title">🛒 Your Cart</div>
+    <button class="cart-head-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cart-body">
+    <div class="cart-empty-state" id="cart-empty">
+      <div class="cart-empty-icon">🛒</div>
+      <div class="cart-empty-text">Your cart is empty.<br>Add items from the shop!</div>
+    </div>
+  </div>
+  <div class="cart-foot" id="cart-foot" style="display:none">
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-val" id="cart-total">£0.00</span>
+    </div>
+    <button class="cart-checkout-btn" onclick="checkout()">Checkout with Tebex →</button>
+    <button class="cart-continue-btn" onclick="closeCart()">Continue Shopping</button>
+    <div class="cart-secure-note">🔒 Payments securely handled by Tebex</div>
+  </div>
+</div>
+
+<script>
+// ── CART ──
+var cart = {};
+
+function addToCart(id, name, price, cat, btn) {
+  if (cart[id]) { cart[id].qty++; }
+  else { cart[id] = { name, price, qty: 1, cat }; }
+  renderCart();
+  // Button feedback
+  if (btn) {
+    btn.textContent = '✓ Added';
+    btn.classList.add('added');
+    btn.disabled = true;
+    setTimeout(() => { btn.textContent = '+ Cart'; btn.classList.remove('added'); btn.disabled = false; }, 1400);
+  }
+  // Show FAB
+  var fab = document.getElementById('cart-fab');
+  fab.style.display = 'flex';
+  fab.style.animation = 'none';
+  fab.offsetHeight; // reflow
+  fab.style.animation = '';
+  updateFab();
+}
+
+function changeQty(id, delta) {
+  if (!cart[id]) return;
+  cart[id].qty += delta;
+  if (cart[id].qty <= 0) delete cart[id];
+  renderCart();
+  updateFab();
+  if (Object.keys(cart).length === 0) document.getElementById('cart-fab').style.display = 'none';
+}
+
+function removeItem(id) {
+  delete cart[id];
+  renderCart();
+  updateFab();
+  if (Object.keys(cart).length === 0) document.getElementById('cart-fab').style.display = 'none';
+}
+
+function updateFab() {
+  var total = Object.values(cart).reduce((s, i) => s + i.qty, 0);
+  document.getElementById('cart-fab-count').textContent = total;
+}
+
+function renderCart() {
+  var body  = document.getElementById('cart-body');
+  var foot  = document.getElementById('cart-foot');
+  var empty = document.getElementById('cart-empty');
+  var items = Object.entries(cart);
+
+  if (items.length === 0) {
+    body.innerHTML = '';
+    body.appendChild(empty);
+    empty.style.display = 'flex';
+    foot.style.display = 'none';
+    return;
+  }
+
+  empty.style.display = 'none';
+  foot.style.display = 'flex';
+  body.innerHTML = '';
+
+  var total = 0;
+  items.forEach(([id, item]) => {
+    total += item.price * item.qty;
+    var el = document.createElement('div');
+    el.className = 'cart-item';
+    el.innerHTML = `
+      <div class="ci-info">
+        <div class="ci-name">${item.name}</div>
+        <div class="ci-price">£${(item.price * item.qty).toFixed(2)}</div>
+      </div>
+      <div class="ci-qty">
+        <button class="ci-qty-btn" onclick="changeQty('${id}',-1)">−</button>
+        <span class="ci-qty-num">${item.qty}</span>
+        <button class="ci-qty-btn" onclick="changeQty('${id}',1)">+</button>
+      </div>
+      <button class="ci-remove" onclick="removeItem('${id}')">✕</button>
+    `;
+    body.appendChild(el);
+  });
+
+  document.getElementById('cart-total').textContent = '£' + total.toFixed(2);
+}
+
+function openCart() {
+  document.getElementById('cart-drawer').classList.add('open');
+  document.getElementById('cart-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCart() {
+  document.getElementById('cart-drawer').classList.remove('open');
+  document.getElementById('cart-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function checkout() {
+  window.open('https://poclus-smp-mc.tebex.io', '_blank');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeCart(); closeStaffPortal(); } });
+
+// ── ROLES HELPER ──
+const ROLES_CLAIM = 'https://poclussmp.com/roles';
+async function getUserRoles() {
+  if (!auth0Client) return [];
+  try {
+    const claims = await auth0Client.getIdTokenClaims();
+    console.log('🔍 All token claims:', claims);
+    // Check multiple possible claim locations
+    const roles =
+      claims[ROLES_CLAIM] ||
+      claims['https://poclussmp.com/roles'] ||
+      claims['roles'] ||
+      claims['https://schemas.quickstarts.com/roles'] ||
+      [];
+    console.log('🛡️ Roles found:', roles);
+    return roles;
+  } catch(e) {
+    console.error('Error getting roles:', e);
+    return [];
+  }
+}
+async function isStaff() {
+  const roles = await getUserRoles();
+  return roles.some(r => ['staff','admin','owner','moderator'].includes(r.toLowerCase()));
+}
+
+// ── STAFF NAV ──
+async function checkStaffNav() {
+  if (await isStaff()) {
+    const link = document.getElementById('nav-staff-link');
+    if (link) link.style.display = 'block';
+  }
+}
+
+// ── STAFF PORTAL ──
+async function openStaffPortal() {
+  if (!(await isStaff())) {
+    const ad = document.getElementById('access-denied');
+    ad.style.display = 'flex';
+    return;
+  }
+  document.getElementById('staff-portal-overlay').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  // Fill staff name
+  const user = await auth0Client.getUser();
+  const el = document.getElementById('sp-staff-name');
+  if (el) el.textContent = user.nickname || user.name || 'Staff';
+  // Load player count
+  const onlineEl = document.getElementById('sp-stat-online');
+  try {
+    const res = await fetch('https://api.mcsrvstat.us/3/poclussmp.minecraft.best',{cache:'no-store'});
+    const d = await res.json();
+    if (onlineEl) onlineEl.textContent = d.online ? (d.players?.online||0) : '0';
+  } catch(e) { if(onlineEl) onlineEl.textContent = '?'; }
+  renderApplications();
+  renderStaffRules();
+  loadStaffNotes();
+  switchSpTab('applications');
+}
+
+function closeStaffPortal() {
+  document.getElementById('staff-portal-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function switchSpTab(tab) {
+  document.querySelectorAll('.sp-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.sp-panel').forEach(p => p.classList.remove('active'));
+  const t = document.getElementById('sptab-'+tab);
+  const p = document.getElementById('sppanel-'+tab);
+  if (t) t.classList.add('active');
+  if (p) p.classList.add('active');
+}
+
+// ── APPLICATIONS STORAGE ──
+function getApplications() {
+  try { return JSON.parse(localStorage.getItem('poclus_applications') || '[]'); }
+  catch(e) { return []; }
+}
+function saveApplications(apps) {
+  localStorage.setItem('poclus_applications', JSON.stringify(apps));
+}
+
+// ── SUBMIT APPLICATION ──
+async function submitApplication() {
+  const isAuthed = auth0Client && await auth0Client.isAuthenticated();
+  if (!isAuthed) { authLogin(); return; }
+
+  const mc       = document.getElementById('app-mc').value.trim();
+  const discord  = document.getElementById('app-discord').value.trim();
+  const age      = document.getElementById('app-age').value.trim();
+  const role     = document.getElementById('app-role').value;
+  const hours    = document.getElementById('app-hours').value.trim();
+  const why      = document.getElementById('app-why').value.trim();
+  const exp      = document.getElementById('app-exp').value.trim();
+  const scenario = document.getElementById('app-scenario').value.trim();
+  const errEl    = document.getElementById('apply-error');
+  const okEl     = document.getElementById('apply-success');
+  errEl.style.display = 'none'; okEl.style.display = 'none';
+
+  if (!mc||!discord||!age||!role||!hours||!why||!exp||!scenario) {
+    errEl.textContent = '⚠️ Please fill in all fields before submitting.';
+    errEl.style.display = 'block'; return;
+  }
+
+  const user = await auth0Client.getUser();
+  const app = {
+    id: Date.now(),
+    mc, discord, age, role, hours, why, exp, scenario,
+    email: user.email,
+    userId: user.sub,
+    status: 'pending',
+    submittedAt: new Date().toISOString()
+  };
+
+  const apps = getApplications();
+  // Remove old app from same user
+  const filtered = apps.filter(a => a.userId !== user.sub);
+  filtered.push(app);
+  saveApplications(filtered);
+
+  okEl.textContent = '✅ Application submitted! We\'ll review it within 7 days and reply on Discord.';
+  okEl.style.display = 'block';
+  ['app-mc','app-discord','app-age','app-hours','app-why','app-exp','app-scenario'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  document.getElementById('app-role').value = '';
+
+  // Update stat
+  const statEl = document.getElementById('sp-stat-apps');
+  if (statEl) statEl.textContent = getApplications().filter(a=>a.status==='pending').length;
+
+  showApplicationTracker(user.sub);
+}
+
+// ── APPLICATION TRACKER ──
+function showApplicationTracker(userId) {
+  const apps = getApplications();
+  const myApp = apps.find(a => a.userId === userId);
+  const tracker = document.getElementById('app-tracker');
+  const card = document.getElementById('app-tracker-card');
+  if (!myApp || !tracker || !card) return;
+
+  const statusColors = { pending:'var(--gold)', approved:'var(--green)', rejected:'#f87171' };
+  const statusLabels = { pending:'⏳ Under Review', approved:'✅ Approved!', rejected:'❌ Not Accepted' };
+
+  card.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+      <div>
+        <div style="font-size:1rem;font-weight:800;">${myApp.mc} — ${myApp.role}</div>
+        <div style="font-size:0.8rem;color:var(--text3);margin-top:0.2rem;">Submitted ${new Date(myApp.submittedAt).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</div>
+      </div>
+      <div style="font-size:0.875rem;font-weight:700;color:${statusColors[myApp.status]};background:${statusColors[myApp.status]}18;border:1px solid ${statusColors[myApp.status]}44;padding:0.4rem 1rem;border-radius:999px;">${statusLabels[myApp.status]}</div>
+    </div>
+    ${myApp.status === 'pending' ? `<div style="margin-top:1rem;font-size:0.82rem;color:var(--text3);">We aim to review all applications within 7 days. Make sure your Discord DMs are open!</div>` : ''}
+    ${myApp.status === 'approved' ? `<div style="margin-top:1rem;font-size:0.875rem;color:var(--green);">Congratulations! A senior staff member will contact you on Discord to complete your onboarding.</div>` : ''}
+    ${myApp.status === 'rejected' ? `<div style="margin-top:1rem;font-size:0.875rem;color:var(--text2);">Thank you for applying. We encourage you to keep playing and apply again in 30 days.</div>` : ''}
+  `;
+  tracker.style.display = 'block';
+}
+
+// ── RENDER APPLICATIONS (STAFF SIDE) ──
+function renderApplications() {
+  const list = document.getElementById('sp-applications-list');
+  if (!list) return;
+  const filter = document.getElementById('sp-filter')?.value || 'all';
+  let apps = getApplications();
+  if (filter !== 'all') apps = apps.filter(a => a.status === filter);
+
+  const statEl = document.getElementById('sp-stat-apps');
+  if (statEl) statEl.textContent = getApplications().filter(a=>a.status==='pending').length;
+
+  if (apps.length === 0) {
+    list.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--text3);">No ${filter === 'all' ? '' : filter} applications found.</div>`;
+    return;
+  }
+
+  list.innerHTML = apps.map(app => `
+    <div class="sp-app-card">
+      <div class="sp-app-header">
+        <div>
+          <div class="sp-app-name">${app.mc}</div>
+          <div style="font-size:0.78rem;color:var(--text3);">${app.email} · Discord: ${app.discord}</div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;">
+          <span class="sp-app-role">${app.role}</span>
+          <span class="sp-app-status sp-status-${app.status}">${app.status.charAt(0).toUpperCase()+app.status.slice(1)}</span>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;">
+        <div class="sp-app-field"><div class="sp-app-label">Age</div><div class="sp-app-val">${app.age}</div></div>
+        <div class="sp-app-field"><div class="sp-app-label">Hours/week</div><div class="sp-app-val">${app.hours}</div></div>
+      </div>
+      <div class="sp-app-field"><div class="sp-app-label">Why they want staff</div><div class="sp-app-val">${app.why}</div></div>
+      <div class="sp-app-field"><div class="sp-app-label">Experience</div><div class="sp-app-val">${app.exp}</div></div>
+      <div class="sp-app-field"><div class="sp-app-label">Scenario answer</div><div class="sp-app-val">${app.scenario}</div></div>
+      <div style="font-size:0.72rem;color:var(--text3);margin-top:0.5rem;">Submitted ${new Date(app.submittedAt).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})}</div>
+      ${app.status === 'pending' ? `
+      <div class="sp-app-actions">
+        <button class="sp-btn-approve" onclick="updateAppStatus(${app.id},'approved')">✅ Approve</button>
+        <button class="sp-btn-reject" onclick="updateAppStatus(${app.id},'rejected')">❌ Reject</button>
+      </div>` : ''}
+    </div>
+  `).join('');
+}
+
+function updateAppStatus(id, status) {
+  const apps = getApplications();
+  const app = apps.find(a => a.id === id);
+  if (app) {
+    app.status = status;
+    saveApplications(apps);
+    renderApplications();
+    // Update tracker if visible
+    if (app) showApplicationTracker(app.userId);
+  }
+}
+
+// ── STAFF RULES ──
+const defaultRules = ['No hate speech or harassment','No griefing or stealing','No hacking or exploits','No spamming or advertising','Respect all players','Staff decisions are final'];
+function renderStaffRules() {
+  const rules = JSON.parse(localStorage.getItem('poclus_rules') || JSON.stringify(defaultRules));
+  const list = document.getElementById('sp-rules-list');
+  if (!list) return;
+  list.innerHTML = rules.map((r,i) => `
+    <div class="sp-rule-card">
+      <div class="sp-rule-num">${String(i+1).padStart(2,'0')}</div>
+      <input value="${r}" style="flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:0.5rem 0.75rem;border-radius:6px;font-family:'Outfit',sans-serif;font-size:0.875rem;outline:none;" onchange="updateRule(${i},this.value)">
+      <button onclick="deleteRule(${i})" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:1rem;padding:0.25rem;transition:color 0.2s;" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='var(--text3)'">✕</button>
+    </div>
+  `).join('');
+}
+function updateRule(i, val) {
+  const rules = JSON.parse(localStorage.getItem('poclus_rules') || JSON.stringify(defaultRules));
+  rules[i] = val; localStorage.setItem('poclus_rules', JSON.stringify(rules));
+}
+function deleteRule(i) {
+  const rules = JSON.parse(localStorage.getItem('poclus_rules') || JSON.stringify(defaultRules));
+  rules.splice(i,1); localStorage.setItem('poclus_rules', JSON.stringify(rules));
+  renderStaffRules();
+}
+function addStaffRule() {
+  const rules = JSON.parse(localStorage.getItem('poclus_rules') || JSON.stringify(defaultRules));
+  rules.push('New rule…'); localStorage.setItem('poclus_rules', JSON.stringify(rules));
+  renderStaffRules();
+}
+
+// ── STAFF NOTES ──
+function loadStaffNotes() {
+  const el = document.getElementById('sp-notes-text');
+  if (el) el.value = localStorage.getItem('poclus_staff_notes') || '';
+}
+function saveStaffNotes() {
+  const el = document.getElementById('sp-notes-text');
+  if (el) localStorage.setItem('poclus_staff_notes', el.value);
+  const ok = document.getElementById('sp-notes-ok');
+  if (ok) { ok.style.display='block'; setTimeout(()=>ok.style.display='none',2000); }
+}
+
+// ── ANNOUNCEMENTS ──
+function postAnnouncement() {
+  const title = document.getElementById('sp-ann-title').value.trim();
+  const msg   = document.getElementById('sp-ann-msg').value.trim();
+  if (!title||!msg) return;
+  const ok = document.getElementById('sp-ann-ok');
+  ok.style.display = 'block';
+  document.getElementById('sp-ann-title').value = '';
+  document.getElementById('sp-ann-msg').value = '';
+  setTimeout(() => ok.style.display='none', 3000);
+}
+
+// ── APPLY PAGE AUTH CHECK ──
+async function checkApplyPage() {
+  const isAuthed = auth0Client && await auth0Client.isAuthenticated();
+  const loginPrompt = document.getElementById('apply-login-prompt');
+  const form = document.getElementById('apply-form');
+  if (!loginPrompt || !form) return;
+  if (isAuthed) {
+    loginPrompt.style.display = 'none';
+    form.style.display = 'block';
+    const user = await auth0Client.getUser();
+    showApplicationTracker(user.sub);
+  } else {
+    loginPrompt.style.display = 'block';
+    form.style.display = 'none';
+  }
+}
+
+// ── AUTH0 ──
+</body>
+</html>
